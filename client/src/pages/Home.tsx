@@ -3,14 +3,32 @@ import { SectionHeading, SourceCard, formatDate } from "@/components/DataPrimiti
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { trpc } from "@/lib/trpc";
+import { HOME_DESCRIPTION, HOME_KEYWORDS_CONTENT, HOME_TITLE } from "@shared/homeSeo";
 import { ArrowRight, CheckCircle2, DatabaseZap, FileCheck2, Fingerprint, Search } from "lucide-react";
+import { useEffect } from "react";
 import { Link } from "wouter";
+
+function setMetaContent(name: string, content: string) {
+  let element = document.querySelector<HTMLMetaElement>(`meta[name="${name}"]`);
+  if (!element) {
+    element = document.createElement("meta");
+    element.name = name;
+    document.head.appendChild(element);
+  }
+  element.content = content;
+}
 
 export default function Home() {
   const sources = trpc.sources.list.useQuery({ limit: 6 });
   const reports = trpc.reports.list.useQuery({ limit: 3 });
   const facets = trpc.sources.facets.useQuery();
   const sourceTotal = facets.data?.categories.reduce((sum, item) => sum + Number(item.total), 0) ?? 0;
+
+  useEffect(() => {
+    document.title = HOME_TITLE;
+    setMetaContent("description", HOME_DESCRIPTION);
+    setMetaContent("keywords", HOME_KEYWORDS_CONTENT);
+  }, []);
 
   return (
     <PublicLayout>
