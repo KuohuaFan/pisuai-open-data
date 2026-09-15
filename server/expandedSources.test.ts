@@ -2,9 +2,9 @@ import { describe, expect, it } from "vitest";
 import { expandedSources } from "../scripts/expandedSources";
 
 describe("expanded source registry", () => {
-  it("contains exactly the fourteen requested source areas with unique slugs", () => {
-    expect(expandedSources).toHaveLength(14);
-    expect(new Set(expandedSources.map(source => source.slug)).size).toBe(14);
+  it("contains the fourteen requested sources plus the national catalog with unique slugs", () => {
+    expect(expandedSources).toHaveLength(15);
+    expect(new Set(expandedSources.map(source => source.slug)).size).toBe(15);
   });
 
   it("stores canonical HTTPS sources and complete governance metadata", () => {

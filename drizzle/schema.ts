@@ -3,6 +3,7 @@ import {
   boolean,
   index,
   int,
+  mediumtext,
   mysqlEnum,
   mysqlTable,
   text,
@@ -61,6 +62,62 @@ export const sources = mysqlTable(
     index("sources_category_idx").on(table.category),
     index("sources_rights_idx").on(table.rightsClass),
   ],
+);
+
+export const governmentDatasets = mysqlTable(
+  "government_datasets",
+  {
+    id: int("id").autoincrement().primaryKey(),
+    datasetId: varchar("datasetId", { length: 40 }).notNull(),
+    title: varchar("title", { length: 500 }).notNull(),
+    dataProperty: varchar("dataProperty", { length: 80 }),
+    serviceCategory: varchar("serviceCategory", { length: 100 }).notNull(),
+    quality: varchar("quality", { length: 40 }),
+    formats: mediumtext("formats"),
+    downloadUrls: mediumtext("downloadUrls"),
+    encodings: varchar("encodings", { length: 240 }),
+    publicationMethod: varchar("publicationMethod", { length: 120 }),
+    description: mediumtext("description"),
+    fieldDescription: mediumtext("fieldDescription"),
+    publisher: varchar("publisher", { length: 240 }).notNull(),
+    updateFrequency: varchar("updateFrequency", { length: 120 }),
+    license: varchar("license", { length: 200 }),
+    relatedUrl: mediumtext("relatedUrl"),
+    cost: varchar("cost", { length: 80 }),
+    issuedAt: bigint("issuedAt", { mode: "number" }),
+    modifiedAt: bigint("modifiedAt", { mode: "number" }),
+    notes: mediumtext("notes"),
+    recordCountText: varchar("recordCountText", { length: 120 }),
+    status: mysqlEnum("status", ["active", "withdrawn"]).default("active").notNull(),
+    rawHash: varchar("rawHash", { length: 64 }).notNull(),
+    firstSeenAt: bigint("firstSeenAt", { mode: "number" }).notNull(),
+    lastSeenAt: bigint("lastSeenAt", { mode: "number" }).notNull(),
+    updatedAt: bigint("updatedAt", { mode: "number" }).notNull(),
+  },
+  table => [
+    uniqueIndex("government_datasets_dataset_id_uq").on(table.datasetId),
+    index("government_datasets_category_idx").on(table.serviceCategory),
+    index("government_datasets_publisher_idx").on(table.publisher),
+    index("government_datasets_modified_idx").on(table.modifiedAt),
+    index("government_datasets_status_idx").on(table.status),
+  ],
+);
+
+export const governmentCatalogSyncs = mysqlTable(
+  "government_catalog_syncs",
+  {
+    id: int("id").autoincrement().primaryKey(),
+    mode: mysqlEnum("mode", ["full", "delta"]).notNull(),
+    status: mysqlEnum("status", ["running", "succeeded", "failed", "skipped"]).notNull(),
+    reportDate: varchar("reportDate", { length: 10 }),
+    recordsSeen: int("recordsSeen").default(0).notNull(),
+    recordsChanged: int("recordsChanged").default(0).notNull(),
+    snapshotSha256: varchar("snapshotSha256", { length: 64 }),
+    message: text("message"),
+    startedAt: bigint("startedAt", { mode: "number" }).notNull(),
+    finishedAt: bigint("finishedAt", { mode: "number" }),
+  },
+  table => [index("government_catalog_syncs_started_idx").on(table.startedAt)],
 );
 
 export const reports = mysqlTable(
@@ -186,3 +243,4 @@ export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 export type Source = typeof sources.$inferSelect;
 export type Report = typeof reports.$inferSelect;
+export type GovernmentDataset = typeof governmentDatasets.$inferSelect;

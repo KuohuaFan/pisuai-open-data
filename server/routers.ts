@@ -3,6 +3,7 @@ import { getSessionCookieOptions } from "./_core/cookies";
 import { publicProcedure, router } from "./_core/trpc";
 import { systemRouter } from "./_core/systemRouter";
 import { adminRouter } from "./routers/admin";
+import { governmentRouter } from "./routers/government";
 import { memberRouter } from "./routers/member";
 import { reportsRouter } from "./routers/reports";
 import { sourcesRouter } from "./routers/sources";
@@ -18,6 +19,7 @@ export const appRouter = router({
     }),
   }),
   sources: sourcesRouter,
+  government: governmentRouter,
   reports: reportsRouter,
   member: memberRouter,
   admin: adminRouter,

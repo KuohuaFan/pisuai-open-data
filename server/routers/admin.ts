@@ -6,9 +6,11 @@ import {
   listAdminSources,
   listIngestionRuns,
   updateReportStatus,
+  updateAutomationResult,
   updateSourceGovernance,
 } from "../db";
 import { generateEvidenceBoundDraft } from "../reportGenerator";
+import { previousTaipeiDate, syncGovernmentCatalogDelta } from "../governmentCatalog";
 import { adminProcedure, router } from "../_core/trpc";
 
 export const adminRouter = router({
@@ -17,6 +19,13 @@ export const adminRouter = router({
   reports: adminProcedure.query(() => listAdminReports()),
   runs: adminProcedure.query(() => listIngestionRuns()),
   automation: adminProcedure.query(() => getAutomationConfig()),
+  catalogAutomation: adminProcedure.query(() => getAutomationConfig("government-catalog-sync")),
+  syncGovernmentCatalog: adminProcedure.mutation(async () => {
+    const result = await syncGovernmentCatalogDelta(previousTaipeiDate());
+    const config = await getAutomationConfig("government-catalog-sync");
+    if (config) await updateAutomationResult(config.id, JSON.stringify(result));
+    return result;
+  }),
   updateSource: adminProcedure
     .input(
       z.object({

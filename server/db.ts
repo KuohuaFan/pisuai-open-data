@@ -3,6 +3,8 @@ import { drizzle } from "drizzle-orm/mysql2";
 import {
   auditLogs,
   automationConfigs,
+  governmentCatalogSyncs,
+  governmentDatasets,
   ingestionRuns,
   InsertUser,
   reportBookmarks,
@@ -121,6 +123,105 @@ export async function getPublicSourceBySlug(slug: string) {
   return source ?? null;
 }
 
+export async function getGovernmentCatalogOverview() {
+  const db = requireDb(await getDb());
+  const [[stats], categories, [lastSync]] = await Promise.all([
+    db
+      .select({
+        total: count(),
+        publishers: sql<number>`count(distinct ${governmentDatasets.publisher})`,
+        latestModifiedAt: sql<number | null>`max(${governmentDatasets.modifiedAt})`,
+      })
+      .from(governmentDatasets)
+      .where(eq(governmentDatasets.status, "active")),
+    db
+      .select({ category: governmentDatasets.serviceCategory, total: count() })
+      .from(governmentDatasets)
+      .where(eq(governmentDatasets.status, "active"))
+      .groupBy(governmentDatasets.serviceCategory)
+      .orderBy(desc(count())),
+    db
+      .select()
+      .from(governmentCatalogSyncs)
+      .where(eq(governmentCatalogSyncs.status, "succeeded"))
+      .orderBy(desc(governmentCatalogSyncs.finishedAt))
+      .limit(1),
+  ]);
+  return { stats, categories, lastSync: lastSync ?? null };
+}
+
+export async function listGovernmentDatasets(input: {
+  q?: string;
+  category?: string;
+  publisher?: string;
+  page: number;
+  pageSize: number;
+}) {
+  const db = requireDb(await getDb());
+  const conditions = [eq(governmentDatasets.status, "active")];
+  if (input.category) conditions.push(eq(governmentDatasets.serviceCategory, input.category));
+  if (input.publisher) conditions.push(eq(governmentDatasets.publisher, input.publisher));
+  if (input.q) {
+    const terms = input.q.split(/\s+/).filter(Boolean).slice(0, 5);
+    for (const word of terms) {
+      const term = `%${word}%`;
+      conditions.push(or(
+        like(governmentDatasets.title, term),
+        like(governmentDatasets.publisher, term),
+        like(governmentDatasets.description, term),
+        like(governmentDatasets.fieldDescription, term),
+        like(governmentDatasets.datasetId, term),
+      )!);
+    }
+  }
+  const where = and(...conditions);
+  const offset = (input.page - 1) * input.pageSize;
+  const [[total], items] = await Promise.all([
+    db.select({ count: count() }).from(governmentDatasets).where(where),
+    db
+      .select({
+        datasetId: governmentDatasets.datasetId,
+        title: governmentDatasets.title,
+        publisher: governmentDatasets.publisher,
+        serviceCategory: governmentDatasets.serviceCategory,
+        description: governmentDatasets.description,
+        formats: governmentDatasets.formats,
+        updateFrequency: governmentDatasets.updateFrequency,
+        license: governmentDatasets.license,
+        modifiedAt: governmentDatasets.modifiedAt,
+      })
+      .from(governmentDatasets)
+      .where(where)
+      .orderBy(desc(governmentDatasets.modifiedAt), governmentDatasets.datasetId)
+      .limit(input.pageSize)
+      .offset(offset),
+  ]);
+  return { items, total: Number(total?.count ?? 0), page: input.page, pageSize: input.pageSize };
+}
+
+export async function getGovernmentDataset(datasetId: string) {
+  const db = requireDb(await getDb());
+  const [dataset] = await db
+    .select()
+    .from(governmentDatasets)
+    .where(and(eq(governmentDatasets.datasetId, datasetId), eq(governmentDatasets.status, "active")))
+    .limit(1);
+  return dataset ?? null;
+}
+
+export async function listGovernmentPublishers(q?: string) {
+  const db = requireDb(await getDb());
+  const conditions = [eq(governmentDatasets.status, "active")];
+  if (q) conditions.push(like(governmentDatasets.publisher, `%${q}%`));
+  return db
+    .select({ publisher: governmentDatasets.publisher, total: count() })
+    .from(governmentDatasets)
+    .where(and(...conditions))
+    .groupBy(governmentDatasets.publisher)
+    .orderBy(desc(count()), governmentDatasets.publisher)
+    .limit(100);
+}
+
 export async function listPublishedReports(limit = 24) {
   const db = requireDb(await getDb());
   return db
@@ -206,10 +307,13 @@ export async function getMemberLibrary(userId: number) {
 
 export async function getAdminOverview() {
   const db = requireDb(await getDb());
-  const [[sourceStats], [reportStats], [runStats]] = await Promise.all([
+  const [[sourceStats], [datasetStats], [reportStats], [runStats]] = await Promise.all([
     db
       .select({ total: count(), publicCount: sql<number>`sum(${sources.isPublic} = true)` })
       .from(sources),
+    db
+      .select({ total: count(), activeCount: sql<number>`sum(${governmentDatasets.status} = 'active')` })
+      .from(governmentDatasets),
     db
       .select({ total: count(), reviewCount: sql<number>`sum(${reports.status} = 'review')` })
       .from(reports),
@@ -217,7 +321,7 @@ export async function getAdminOverview() {
       .select({ total: count(), failedCount: sql<number>`sum(${ingestionRuns.status} = 'failed')` })
       .from(ingestionRuns),
   ]);
-  return { sourceStats, reportStats, runStats };
+  return { sourceStats, datasetStats, reportStats, runStats };
 }
 
 export async function listAdminSources() {

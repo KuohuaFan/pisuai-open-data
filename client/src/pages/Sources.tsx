@@ -4,8 +4,9 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { trpc } from "@/lib/trpc";
-import { Search, SlidersHorizontal } from "lucide-react";
+import { ArrowRight, Database, Search, SlidersHorizontal } from "lucide-react";
 import { useMemo, useState } from "react";
+import { Link } from "wouter";
 
 export default function Sources() {
   const [q, setQ] = useState("");
@@ -19,6 +20,7 @@ export default function Sources() {
   }), [q, category, rightsClass]);
   const sources = trpc.sources.list.useQuery(input);
   const facets = trpc.sources.facets.useQuery();
+  const sourceTotal = facets.data?.categories.reduce((sum, item) => sum + Number(item.total), 0) ?? 0;
 
   return (
     <PublicLayout>
@@ -26,6 +28,11 @@ export default function Sources() {
         <section className="border-b border-ink/10 bg-paper-deep">
           <div className="container py-20">
             <SectionHeading kicker="PUBLIC SOURCE REGISTRY" title="臺灣開放資料來源庫" copy="公開的是經過來源與權利初篩的索引；每個標籤代表 PisuAI 的使用政策，不取代個案法律判斷。" />
+            <div className="mt-10 grid gap-5 border-l-4 border-jade bg-navy p-6 text-white md:grid-cols-[auto_1fr_auto] md:items-center">
+              <span className="grid size-12 place-items-center border border-white/15 text-jade"><Database className="size-5" /></span>
+              <div><p className="text-xs font-bold tracking-[.16em] text-jade">全國政府資料全集</p><p className="mt-2 text-sm leading-7 text-white/65">本頁 {sourceTotal || "—"} 筆是人工治理的來源卡；另有 5.3 萬筆以上中央與地方政府資料集 metadata 可全文搜尋。</p></div>
+              <Link href="/government-data" className="inline-flex items-center gap-2 border border-white/20 px-4 py-3 text-sm font-semibold hover:bg-white/10">前往全集索引<ArrowRight className="size-4" /></Link>
+            </div>
             <div className="mt-12 grid gap-3 border border-ink/10 bg-paper p-4 md:grid-cols-[1fr_240px_240px]">
               <label className="relative">
                 <Search className="absolute left-4 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />

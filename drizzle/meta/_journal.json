@@ -15,6 +15,20 @@
       "when": 1788980057153,
       "tag": "0001_fast_george_stacy",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1789460057354,
+      "tag": "0002_faithful_callisto",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1789460646120,
+      "tag": "0003_brown_eternity",
+      "breakpoints": true
     }
   ]
 }

@@ -3,6 +3,7 @@ import { eq, inArray } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { automationConfigs, reports, reportSources, sources } from "../drizzle/schema";
 import { expandedSources } from "./expandedSources";
+import { governmentSpecializedSources } from "./governmentSpecializedSources";
 
 if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL is required");
 const db = drizzle(process.env.DATABASE_URL);
@@ -96,11 +97,12 @@ const registry = [
   },
 ];
 
-for (const item of [...registry, ...expandedSources]) {
+for (const item of [...registry, ...expandedSources, ...governmentSpecializedSources]) {
   await db.insert(sources).values({ ...item, status: "active", isPublic: true, recordCount: 0, lastVerifiedAt: verifiedAt, createdAt: now, updatedAt: now }).onDuplicateKeyUpdate({ set: { ...item, status: "active", isPublic: true, lastVerifiedAt: verifiedAt, updatedAt: now } });
 }
 
 await db.insert(automationConfigs).values({ key: "biennial-report", enabled: false, cronExpression: "0 0 1 */2 * *", model: "gpt-5-mini", promptVersion: "evidence-report-v1.0", updatedAt: now }).onDuplicateKeyUpdate({ set: { cronExpression: "0 0 1 */2 * *", model: "gpt-5-mini", promptVersion: "evidence-report-v1.0", updatedAt: now } });
+await db.insert(automationConfigs).values({ key: "government-catalog-sync", enabled: false, cronExpression: "0 30 21 * * *", model: "deterministic", promptVersion: "data-gov-delta-v1.0", updatedAt: now }).onDuplicateKeyUpdate({ set: { cronExpression: "0 30 21 * * *", model: "deterministic", promptVersion: "data-gov-delta-v1.0", updatedAt: now } });
 
 const initialSlug = "github-license-is-not-data-license";
 const [existing] = await db.select({ id: reports.id }).from(reports).where(eq(reports.slug, initialSlug)).limit(1);
@@ -125,4 +127,5 @@ if (!existing) {
   await db.insert(reportSources).values(sourceRows.map(source => ({ reportId: created.id, sourceId: source.id, evidenceUrl: source.sourceUrl, createdAt: now })));
 }
 
-console.log(`Seeded ${registry.length + expandedSources.length} sources and initial publication.`);
+console.log(`Seeded ${registry.length + expandedSources.length + governmentSpecializedSources.length} sources and initial publication.`);
+process.exit(0);

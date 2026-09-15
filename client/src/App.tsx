@@ -1,6 +1,8 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Admin from "@/pages/Admin";
+import GovernmentDatasetDetail from "@/pages/GovernmentDatasetDetail";
+import GovernmentDatasets from "@/pages/GovernmentDatasets";
 import Home from "@/pages/Home";
 import Library from "@/pages/Library";
 import Methodology from "@/pages/Methodology";
@@ -19,6 +21,8 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/sources" component={Sources} />
       <Route path="/sources/:slug">{params => <SourceDetail slug={params.slug} />}</Route>
+      <Route path="/government-data" component={GovernmentDatasets} />
+      <Route path="/government-data/:datasetId">{params => <GovernmentDatasetDetail datasetId={params.datasetId} />}</Route>
       <Route path="/reports" component={Reports} />
       <Route path="/reports/:slug">{params => <ReportDetail slug={params.slug} />}</Route>
       <Route path="/methodology" component={Methodology} />

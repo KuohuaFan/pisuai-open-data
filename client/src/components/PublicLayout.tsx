@@ -7,6 +7,7 @@ import { Link, useLocation } from "wouter";
 
 const nav = [
   ["資料庫", "/sources"],
+  ["政府資料全集", "/government-data"],
   ["深度報導", "/reports"],
   ["方法與授權", "/methodology"],
 ] as const;
@@ -88,7 +89,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
           </div>
           <div>
             <p className="footer-title">探索</p>
-            <div className="space-y-3 text-sm text-white/68"><Link href="/sources">開放資料庫</Link><br /><Link href="/reports">深度報導</Link><br /><Link href="/methodology">治理方法</Link></div>
+            <div className="space-y-3 text-sm text-white/68"><Link href="/sources">治理來源庫</Link><br /><Link href="/government-data">政府資料全集</Link><br /><Link href="/reports">深度報導</Link><br /><Link href="/methodology">治理方法</Link></div>
           </div>
           <div>
             <p className="footer-title">治理承諾</p>

@@ -22,6 +22,7 @@ export default function Home() {
   const sources = trpc.sources.list.useQuery({ limit: 6 });
   const reports = trpc.reports.list.useQuery({ limit: 3 });
   const facets = trpc.sources.facets.useQuery();
+  const government = trpc.government.overview.useQuery();
   const sourceTotal = facets.data?.categories.reduce((sum, item) => sum + Number(item.total), 0) ?? 0;
 
   useEffect(() => {
@@ -47,11 +48,12 @@ export default function Home() {
                 PiSuAI｜貔貅智慧收錄臺灣官方與民間開放資料，將授權、版本、更新與風險放在同一條證據鏈上，再把資料轉化為可核實的深度報導。
               </p>
               <div className="mt-10 flex flex-wrap gap-3">
-                <Button asChild size="lg" className="rounded-none px-7"><Link href="/sources"><Search className="mr-2 size-4" />探索資料庫</Link></Button>
-                <Button asChild size="lg" variant="outline" className="rounded-none px-7"><Link href="/reports">閱讀深度報導<ArrowRight className="ml-2 size-4" /></Link></Button>
+                <Button asChild size="lg" className="rounded-none px-7"><Link href="/government-data"><Search className="mr-2 size-4" />搜尋政府資料全集</Link></Button>
+                <Button asChild size="lg" variant="outline" className="rounded-none px-7"><Link href="/sources">查看治理來源庫<ArrowRight className="ml-2 size-4" /></Link></Button>
               </div>
-              <div className="mt-12 grid max-w-2xl grid-cols-3 border-y border-ink/10 py-6">
-                <Metric value={sourceTotal || "—"} label="公開來源" />
+              <div className="mt-12 grid max-w-3xl grid-cols-2 gap-y-6 border-y border-ink/10 py-6 sm:grid-cols-4">
+                <Metric value={Number(government.data?.stats?.total ?? 0).toLocaleString() || "—"} label="政府資料集" />
+                <Metric value={sourceTotal || "—"} label="治理來源" />
                 <Metric value={facets.data?.categories.length ?? "—"} label="資料領域" />
                 <Metric value="48h" label="報導節奏" />
               </div>
