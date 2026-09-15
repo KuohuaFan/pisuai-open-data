@@ -2,11 +2,12 @@ import "dotenv/config";
 import { eq, inArray } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { automationConfigs, reports, reportSources, sources } from "../drizzle/schema";
+import { expandedSources } from "./expandedSources";
 
 if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL is required");
 const db = drizzle(process.env.DATABASE_URL);
 const now = Date.now();
-const verifiedAt = Date.UTC(2026, 8, 10);
+const verifiedAt = Date.UTC(2026, 8, 15);
 
 const registry = [
   {
@@ -95,7 +96,7 @@ const registry = [
   },
 ];
 
-for (const item of registry) {
+for (const item of [...registry, ...expandedSources]) {
   await db.insert(sources).values({ ...item, status: "active", isPublic: true, recordCount: 0, lastVerifiedAt: verifiedAt, createdAt: now, updatedAt: now }).onDuplicateKeyUpdate({ set: { ...item, status: "active", isPublic: true, lastVerifiedAt: verifiedAt, updatedAt: now } });
 }
 
@@ -124,4 +125,4 @@ if (!existing) {
   await db.insert(reportSources).values(sourceRows.map(source => ({ reportId: created.id, sourceId: source.id, evidenceUrl: source.sourceUrl, createdAt: now })));
 }
 
-console.log(`Seeded ${registry.length} sources and initial publication.`);
+console.log(`Seeded ${registry.length + expandedSources.length} sources and initial publication.`);

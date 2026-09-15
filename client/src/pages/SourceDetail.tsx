@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { startLogin } from "@/const";
 import { trpc } from "@/lib/trpc";
-import { ArrowLeft, Bookmark, ExternalLink, GitBranch, History, RadioTower, ShieldAlert } from "lucide-react";
+import { AlertTriangle, ArrowLeft, Bookmark, ExternalLink, GitBranch, History, RadioTower, ShieldAlert } from "lucide-react";
 import { Link } from "wouter";
 
 export default function SourceDetail({ slug }: { slug: string }) {
@@ -16,6 +16,7 @@ export default function SourceDetail({ slug }: { slug: string }) {
   if (source.isLoading) return <PublicLayout><main className="container py-20"><Skeleton className="h-[520px] rounded-none" /></main></PublicLayout>;
   if (!source.data) return <PublicLayout><main className="container py-28 text-center"><h1 className="font-serif text-4xl">此來源不存在或尚未公開</h1><Button asChild className="mt-8 rounded-none"><Link href="/sources">返回資料庫</Link></Button></main></PublicLayout>;
   const item = source.data;
+  const requiresPublicDataDisclaimer = ["智慧財產與專利訴訟", "公共衛生、醫療與環境", "公共監督與立法追蹤", "消費者保護與勞資爭議"].includes(item.category);
 
   return (
     <PublicLayout>
@@ -40,6 +41,7 @@ export default function SourceDetail({ slug }: { slug: string }) {
             <a href={item.sourceUrl} target="_blank" rel="noreferrer" className="source-link"><span><small>CANONICAL SOURCE</small>原始資料來源</span><ExternalLink className="size-4" /></a>
             {item.repoUrl && <a href={item.repoUrl} target="_blank" rel="noreferrer" className="source-link"><span><small>GITHUB REPOSITORY</small>程式碼／資料專案</span><GitBranch className="size-4" /></a>}
             {item.commitSha && <div className="border border-ink/10 bg-paper-deep p-5"><p className="text-[10px] font-bold tracking-[.18em] text-muted-foreground">PINNED COMMIT</p><code className="mt-3 block break-all text-xs text-ink/70">{item.commitSha}</code></div>}
+            {requiresPublicDataDisclaimer && <div className="border-l-4 border-gold bg-paper-deep p-5"><div className="flex items-center gap-2"><AlertTriangle className="size-4 text-gold-dark" /><p className="text-xs font-bold tracking-[.14em] text-ink">公開資料與法律聲明</p></div><p className="mt-3 text-xs leading-6 text-ink/62">本頁僅整理公開可得資訊、檢索範圍與使用限制，內容只供參考，不代表法律、醫療或個案意見，也不保證資料完全正確。請回查官方最新版本；使用者應自行評估目的、個資、名譽及其他風險並承擔使用責任。</p></div>}
           </aside>
         </section>
       </main>
