@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PiSuAI 貔貅智慧｜臺灣開放資料治理與深度報導平台</title>
+    <meta
+      name="description"
+      content="PiSuAI 貔貅智慧整合臺灣政府開放資料、官方專業平臺與民間開源專案，提供資料來源追溯、授權分級、版本查核、政府資料搜尋與具引用的深度報導。"
+    />
+    <meta
+      name="keywords"
+      content="臺灣開放資料,政府資料庫,資料治理,PiSuAI,貔貅智慧,法律科技,深度報導"
+    />
+    <meta name="theme-color" content="#071f27" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="zh_TW" />
+    <meta property="og:title" content="PiSuAI 貔貅智慧｜臺灣開放資料治理平台" />
+    <meta
+      property="og:description"
+      content="來源可追、版本可核、權利先行、錯誤可改。探索臺灣政府資料全集與經人工查核的治理來源。"
+    />
+    <meta
+      property="og:url"
+      content="https://kuohuafan.github.io/pisuai-open-data-backup/"
+    />
+    <link
+      rel="canonical"
+      href="https://kuohuafan.github.io/pisuai-open-data-backup/"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到主要內容</a>
+
+    <header class="site-header">
+      <div class="shell header-inner">
+        <a class="brand" href="#top" aria-label="PiSuAI GitHub Pages 首頁">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 48 48" role="img">
+              <ellipse cx="24" cy="13" rx="13" ry="6"></ellipse>
+              <path d="M11 13v20c0 3.5 5.8 6.5 13 6.5s13-3 13-6.5V13"></path>
+              <path d="M11 23c0 3.5 5.8 6.5 13 6.5s13-3 13-6.5"></path>
+              <path d="M11 33c0 3.5 5.8 6.5 13 6.5s13-3 13-6.5"></path>
+            </svg>
+          </span>
+          <span>
+            <strong>PiSuAI</strong>
+            <small>貔貅智慧</small>
+          </span>
+        </a>
+
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="main-nav"
+        >
+          <span></span><span></span><span></span
+          ><span class="sr-only">開啟選單</span>
+        </button>
+
+        <nav id="main-nav" class="main-nav" aria-label="主要導覽">
+          <a href="#overview">專案總覽</a>
+          <a href="#architecture">系統架構</a>
+          <a href="#governance">治理原則</a>
+          <a href="#start">開始使用</a>
+        </nav>
+
+        <a
+          class="button button-small header-cta"
+          href="https://opendataset.manus.space/"
+          target="_blank"
+          rel="noreferrer"
+        >
+          開啟完整平台
+          <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </header>
+
+    <main id="main">
+      <section id="top" class="hero">
+        <div class="hero-grid" aria-hidden="true"></div>
+        <div class="shell hero-layout">
+          <div class="hero-copy reveal">
+            <p class="eyebrow"><span></span> Taiwan Open Data Infrastructure</p>
+            <h1>讓開放資料<br /><em>成為可信證據。</em></h1>
+            <p class="hero-lead">
+              PiSuAI｜貔貅智慧把臺灣政府資料、官方專業平臺與重要開源專案放進同一條可追溯證據鏈。每一筆來源都保留授權、版本、更新狀態與使用限制。
+            </p>
+            <div class="hero-actions">
+              <a
+                class="button button-primary"
+                href="https://opendataset.manus.space/government-data"
+                target="_blank"
+                rel="noreferrer"
+              >
+                搜尋政府資料全集 <span aria-hidden="true">→</span>
+              </a>
+              <a
+                class="button button-ghost"
+                href="https://github.com/KuohuaFan/pisuai-open-data-backup"
+                target="_blank"
+                rel="noreferrer"
+              >
+                查看原始碼 <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+            <p class="hero-note">
+              GitHub Pages
+              提供公開專案介紹；資料搜尋、登入、收藏與治理後台由正式全端平台提供。
+            </p>
+          </div>
+
+          <aside class="registry-card reveal" aria-label="專案治理摘要">
+            <div class="registry-head">
+              <div>
+                <p>Source Registry</p>
+                <h2>可信資料工作台</h2>
+              </div>
+              <svg class="fingerprint" viewBox="0 0 64 64" aria-hidden="true">
+                <path d="M15 28c0-10 7-17 17-17s17 7 17 17"></path>
+                <path
+                  d="M10 28C10 15 19 6 32 6s22 9 22 22c0 13-4 23-10 30"
+                ></path>
+                <path
+                  d="M21 29c0-7 4-11 11-11s11 4 11 11c0 12-3 21-8 29"
+                ></path>
+                <path d="M27 31c0-4 2-7 5-7s5 3 5 7c0 11-2 18-5 25"></path>
+                <path d="M16 38c1 8 0 14-3 19"></path>
+                <path d="M22 39c1 8 0 15-3 21"></path>
+              </svg>
+            </div>
+            <div class="registry-focus">
+              <span class="orbit orbit-one"></span>
+              <span class="orbit orbit-two"></span>
+              <div>
+                <strong>53,169</strong>
+                <small>government datasets</small>
+              </div>
+            </div>
+            <div class="registry-list">
+              <div>
+                <span>01</span><strong>來源可追</strong
+                ><small>canonical URL / commit SHA</small>
+              </div>
+              <div>
+                <span>02</span><strong>權利分級</strong
+                ><small>A / B / C / D / MIXED</small>
+              </div>
+              <div>
+                <span>03</span><strong>發布可控</strong
+                ><small>AI 草稿 → 人工核准</small>
+              </div>
+            </div>
+            <div class="registry-stamp">2026.09 snapshot</div>
+          </aside>
+        </div>
+
+        <div class="shell metrics" aria-label="專案統計">
+          <div><strong>53,169</strong><span>政府資料集 metadata</span></div>
+          <div><strong>800</strong><span>提供機關標籤</span></div>
+          <div><strong>39</strong><span>人工治理來源</span></div>
+          <div><strong>48h</strong><span>深度報導節奏</span></div>
+        </div>
+      </section>
+
+      <section id="overview" class="section overview">
+        <div class="shell">
+          <div class="section-heading reveal">
+            <p class="eyebrow"><span></span> What this project delivers</p>
+            <h2>不是資料堆積，<br />而是可以逐筆追問的來源庫。</h2>
+            <p>
+              全國資料目錄提供廣度，人工治理來源提供判讀深度。兩者分層保存，避免把「已收錄」誤認為「可無限制使用」。
+            </p>
+          </div>
+
+          <div class="feature-grid">
+            <article class="feature-card reveal">
+              <span class="feature-number">01</span>
+              <div class="feature-icon" aria-hidden="true">⌕</div>
+              <h3>政府資料全集</h3>
+              <p>
+                支援多關鍵字搜尋、服務分類、分頁、資料集詳情與官方資源導流。
+              </p>
+              <a
+                href="https://opendataset.manus.space/government-data"
+                target="_blank"
+                rel="noreferrer"
+                >探索 53,169 筆資料 <span>→</span></a
+              >
+            </article>
+            <article class="feature-card feature-card-dark reveal">
+              <span class="feature-number">02</span>
+              <div class="feature-icon" aria-hidden="true">◇</div>
+              <h3>來源治理</h3>
+              <p>
+                逐一保存資料與程式碼授權、版本、取得方式、風險、顯名及公開政策。
+              </p>
+              <a
+                href="https://opendataset.manus.space/sources"
+                target="_blank"
+                rel="noreferrer"
+                >查看治理來源 <span>→</span></a
+              >
+            </article>
+            <article class="feature-card reveal">
+              <span class="feature-number">03</span>
+              <div class="feature-icon" aria-hidden="true">¶</div>
+              <h3>證據型深度報導</h3>
+              <p>
+                AI
+                只產生具引用的待審草稿；證據不足時安全降級，管理者核准後才公開。
+              </p>
+              <a
+                href="https://opendataset.manus.space/reports"
+                target="_blank"
+                rel="noreferrer"
+                >閱讀深度報導 <span>→</span></a
+              >
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="architecture" class="section architecture">
+        <div class="shell architecture-layout">
+          <div class="architecture-copy reveal">
+            <p class="eyebrow eyebrow-light"><span></span> Architecture</p>
+            <h2>從官方目錄到公共敘事，<br />每一步都有紀錄。</h2>
+            <p>
+              GitHub Pages 是本專案的公開入口；完整功能由 React、Express、tRPC
+              與 MySQL／TiDB 組成的全端系統執行。
+            </p>
+            <ul class="tech-list" aria-label="技術棧">
+              <li>React 19</li>
+              <li>TypeScript 5.9</li>
+              <li>tRPC 11</li>
+              <li>Drizzle ORM</li>
+              <li>MySQL / TiDB</li>
+              <li>Vitest</li>
+            </ul>
+          </div>
+
+          <div class="pipeline reveal" aria-label="資料處理流程">
+            <div class="pipeline-node source-node">
+              <small>INPUT 01</small><strong>data.gov.tw</strong
+              ><span>全量 CSV</span>
+            </div>
+            <div class="pipeline-node source-node">
+              <small>INPUT 02</small><strong>每日異動</strong
+              ><span>JSON delta</span>
+            </div>
+            <div class="pipeline-arrow arrow-one" aria-hidden="true">→</div>
+            <div class="pipeline-node process-node">
+              <small>PROCESS</small><strong>驗證與去重</strong
+              ><span>SHA-256 / datasetId</span>
+            </div>
+            <div class="pipeline-arrow arrow-two" aria-hidden="true">→</div>
+            <div class="pipeline-node store-node">
+              <small>STORE</small><strong>可信目錄</strong
+              ><span>metadata / provenance</span>
+            </div>
+            <div class="pipeline-down" aria-hidden="true">↓</div>
+            <div class="pipeline-node review-node">
+              <small>EDITORIAL</small><strong>AI 待審草稿</strong
+              ><span>人工發布閘門</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="governance" class="section governance">
+        <div class="shell">
+          <div class="section-heading governance-heading reveal">
+            <p class="eyebrow"><span></span> Rights before reuse</p>
+            <h2>程式碼開源，<br />不等於上游資料自動開放。</h2>
+            <p>
+              每個治理來源都帶有權利分級。涉及裁判、醫療、政治獻金、公司關係、不動產交易及行政裁罰時，平台採更保守的索引與導流政策。
+            </p>
+          </div>
+
+          <div class="rights-grid reveal" role="list" aria-label="權利分級">
+            <div role="listitem" class="right-a">
+              <strong>A</strong><span>可公開再利用</span
+              ><small>保留來源與顯名</small>
+            </div>
+            <div role="listitem" class="right-b">
+              <strong>B</strong><span>僅索引與導流</span
+              ><small>不鏡像原始內容</small>
+            </div>
+            <div role="listitem" class="right-c">
+              <strong>C</strong><span>限內部使用</span
+              ><small>不進入公開層</small>
+            </div>
+            <div role="listitem" class="right-d">
+              <strong>D</strong><span>另取授權</span
+              ><small>權利確認後再用</small>
+            </div>
+            <div role="listitem" class="right-mixed">
+              <strong>M</strong><span>逐欄審查</span
+              ><small>混合權利與敏感欄位</small>
+            </div>
+          </div>
+
+          <blockquote class="principle reveal">
+            <p>
+              「收錄 metadata
+              不表示每筆原始資料都已完成法律審查；實際使用仍應核對官方最新版本、授權、個資與第三人權利。」
+            </p>
+            <cite>PiSuAI 資料治理公開邊界</cite>
+          </blockquote>
+        </div>
+      </section>
+
+      <section id="start" class="section start">
+        <div class="shell start-layout">
+          <div class="start-copy reveal">
+            <p class="eyebrow"><span></span> Open project</p>
+            <h2>閱讀、驗證，<br />再讓資料產生公共價值。</h2>
+            <p>
+              原始碼、migration、同步程式與治理文件均保存在
+              GitHub。正式資料庫、環境變數、OAuth 憑證與模型金鑰不進入
+              repository。
+            </p>
+            <div class="hero-actions">
+              <a
+                class="button button-primary"
+                href="https://github.com/KuohuaFan/pisuai-open-data-backup"
+                target="_blank"
+                rel="noreferrer"
+                >GitHub Repository <span>↗</span></a
+              >
+              <a
+                class="button button-ghost"
+                href="https://github.com/KuohuaFan/pisuai-open-data-backup/blob/main/README.md"
+                target="_blank"
+                rel="noreferrer"
+                >閱讀技術文件 <span>→</span></a
+              >
+            </div>
+          </div>
+
+          <div class="command-card reveal" aria-label="本機啟動指令">
+            <div class="command-head">
+              <span></span><span></span><span></span><small>quick start</small>
+            </div>
+            <pre><code><span class="code-muted"># Clone repository</span>
+git clone https://github.com/KuohuaFan/\
+pisuai-open-data-backup.git
+
+cd pisuai-open-data-backup
+corepack enable
+pnpm install
+
+<span class="code-muted"># Verify the project</span>
+pnpm test -- --run
+pnpm check
+pnpm build</code></pre>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell footer-grid">
+        <div class="footer-brand">
+          <a class="brand brand-light" href="#top">
+            <span class="brand-mark" aria-hidden="true">
+              <svg viewBox="0 0 48 48">
+                <ellipse cx="24" cy="13" rx="13" ry="6"></ellipse>
+                <path d="M11 13v20c0 3.5 5.8 6.5 13 6.5s13-3 13-6.5V13"></path>
+                <path d="M11 23c0 3.5 5.8 6.5 13 6.5s13-3 13-6.5"></path>
+              </svg>
+            </span>
+            <span><strong>PiSuAI</strong><small>貔貅智慧</small></span>
+          </a>
+          <p>來源可追、版本可核、權利先行、錯誤可改。</p>
+        </div>
+        <div>
+          <h3>探索</h3>
+          <a
+            href="https://opendataset.manus.space/government-data"
+            target="_blank"
+            rel="noreferrer"
+            >政府資料全集</a
+          >
+          <a
+            href="https://opendataset.manus.space/sources"
+            target="_blank"
+            rel="noreferrer"
+            >治理來源庫</a
+          >
+          <a
+            href="https://opendataset.manus.space/reports"
+            target="_blank"
+            rel="noreferrer"
+            >深度報導</a
+          >
+        </div>
+        <div>
+          <h3>專案</h3>
+          <a
+            href="https://github.com/KuohuaFan/pisuai-open-data-backup"
+            target="_blank"
+            rel="noreferrer"
+            >GitHub</a
+          >
+          <a
+            href="https://github.com/KuohuaFan/pisuai-open-data-backup/blob/main/README.md"
+            target="_blank"
+            rel="noreferrer"
+            >README</a
+          >
+          <a
+            href="https://opendataset.manus.space/methodology"
+            target="_blank"
+            rel="noreferrer"
+            >方法與授權</a
+          >
+        </div>
+      </div>
+      <div class="shell footer-bottom">
+        <span>© <span id="year">2026</span> PiSuAI｜貔貅智慧</span>
+        <span>GitHub Pages · Project introduction</span>
+      </div>
+    </footer>
+  </body>
+</html>
