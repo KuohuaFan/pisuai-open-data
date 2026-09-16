@@ -944,7 +944,7 @@ button {
     padding-block: 70px 50px;
   }
   .hero h1 {
-    font-size: clamp(48px, 15vw, 68px);
+    font-size: clamp(44px, 12vw, 54px);
   }
   .hero-lead {
     font-size: 15px;
