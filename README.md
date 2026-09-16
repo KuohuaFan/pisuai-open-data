@@ -1,6 +1,7 @@
 # PiSuAI｜貔貅智慧・臺灣開放資料與深度報導平台
 
 [![Website](https://img.shields.io/badge/website-opendataset.manus.space-06252d)](https://opendataset.manus.space/)
+[![GitHub Pages](https://img.shields.io/badge/project-GitHub%20Pages-b08b35)](https://kuohuafan.github.io/pisuai-open-data-backup/)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178c6)
 ![React](https://img.shields.io/badge/React-19-149eca)
 ![Tests](https://img.shields.io/badge/tests-16%20passed-1f9d7a)
@@ -8,7 +9,9 @@
 
 **PiSuAI｜貔貅智慧**是一個以來源追溯、權利分級與人工發布閘門為核心的臺灣開放資料平台。系統將政府資料開放平臺的全國資料目錄轉化為可搜尋索引，同時維護一層經人工判讀的官方與民間來源庫。平台也能依已核准來源產生具引用的深度報導草稿，但不允許 AI 跳過人工審核直接發布。
 
-正式網站：[https://opendataset.manus.space/](https://opendataset.manus.space/)
+完整全端網站：[https://opendataset.manus.space/](https://opendataset.manus.space/)
+
+GitHub Pages 專案介紹：[https://kuohuafan.github.io/pisuai-open-data-backup/](https://kuohuafan.github.io/pisuai-open-data-backup/)
 
 > **核心原則：來源可追、版本可核、權利先行、錯誤可改。** 收錄 metadata 不表示 PiSuAI 已驗證每筆原始資料，也不表示資料可以不受限制地重新利用。
 
