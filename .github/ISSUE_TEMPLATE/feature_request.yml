@@ -1,0 +1,47 @@
+name: 功能或優化提案
+description: 提議新功能、效能、文件、無障礙或架構改善
+title: "[Proposal] "
+labels: ["enhancement", "discussion"]
+body:
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: 提交前確認
+      options:
+        - label: 我已搜尋既有 Issue 與 Pull Request。
+          required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: 要解決的問題
+      description: 請先描述使用者問題或維護困難，不只描述功能名稱。
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 建議方案
+      description: 說明流程、介面、資料模型或 API 會如何改變。
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: 替代方案
+      description: 說明曾考慮的其他做法及未採用原因。
+  - type: checkboxes
+    id: impact
+    attributes:
+      label: 影響檢查
+      options:
+        - label: 可能變更資料庫 schema 或 migration
+        - label: 可能變更公開 API 或路由
+        - label: 涉及個資、高風險資料或授權邊界
+        - label: 需要新增外部服務、API key 或持續背景程序
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: 驗收方式
+      description: 說明完成後如何測試及判斷成功。
+    validations:
+      required: true

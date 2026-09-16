@@ -1,0 +1,64 @@
+name: 錯誤回報
+description: 回報可重現的功能、資料同步或介面問題
+title: "[Bug] "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感謝您協助改善 PiSuAI。安全漏洞、憑證或未公開個資請改用 Security Advisory 私密回報。
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: 提交前確認
+      options:
+        - label: 我已搜尋既有 Issue，沒有相同問題。
+          required: true
+        - label: 此回報不包含密碼、Token、正式資料庫內容或未公開個資。
+          required: true
+  - type: input
+    id: version
+    attributes:
+      label: 版本或 commit
+      description: 請提供版本、commit SHA 或部署網址。
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: 問題說明
+      description: 請說明實際結果、預期結果及影響。
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 重現步驟
+      description: 提供最小且可重現的步驟、測試資料與錯誤訊息。
+    validations:
+      required: true
+  - type: dropdown
+    id: scope
+    attributes:
+      label: 影響範圍
+      options:
+        - 公開網站
+        - 政府資料同步
+        - 治理來源
+        - 深度報導
+        - 會員與驗證
+        - 管理後台
+        - 文件或部署
+        - 其他
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: 環境資訊
+      description: 作業系統、瀏覽器、Node.js、資料庫或其他必要資訊。
+  - type: textarea
+    id: context
+    attributes:
+      label: 補充資料
+      description: 可附去識別後的日誌、截圖或最小案例。請勿貼上 secrets。

@@ -1,0 +1,65 @@
+name: 資料來源提案
+description: 建議新增或修正臺灣官方、民間或 GitHub 開放資料來源
+title: "[Source] "
+labels: ["data-source", "governance", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        PiSuAI 會先查核來源、授權、版本與風險，再決定公開索引、導流或內部使用。請勿在 Issue 附上完整敏感資料。
+  - type: input
+    id: source_name
+    attributes:
+      label: 來源名稱
+    validations:
+      required: true
+  - type: input
+    id: canonical_url
+    attributes:
+      label: Canonical URL
+      description: 請提供官方資料集頁、官方 API 文件或原始 GitHub repository。
+    validations:
+      required: true
+  - type: input
+    id: provider
+    attributes:
+      label: 提供機關或維護者
+    validations:
+      required: true
+  - type: textarea
+    id: public_value
+    attributes:
+      label: 公共價值與使用情境
+    validations:
+      required: true
+  - type: textarea
+    id: access
+    attributes:
+      label: 取得方式、格式與更新頻率
+      description: 例如 API、CSV、JSON、下載頁、Git commit 或需申請的服務。
+    validations:
+      required: true
+  - type: textarea
+    id: license
+    attributes:
+      label: 授權、使用條款與必要顯名
+      description: 請提供可核對的授權或條款網址；不知道時請明確寫「尚待查核」。
+    validations:
+      required: true
+  - type: checkboxes
+    id: risks
+    attributes:
+      label: 風險線索
+      options:
+        - label: 可能包含個人資料或可再識別欄位
+        - label: 可能涉及名譽、裁罰、醫療、司法或政治資訊
+        - label: 可能包含第三人著作、照片、附件或商標
+        - label: 需要帳號、付費或 API key
+        - label: 不確定能否重新散布原始內容
+  - type: textarea
+    id: publication
+    attributes:
+      label: 建議公開方式與驗證方法
+      description: 建議完整鏡像、只收 metadata、索引導流或限內部使用，並說明如何驗證。
+    validations:
+      required: true
