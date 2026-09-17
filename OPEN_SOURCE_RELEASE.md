@@ -35,6 +35,12 @@ Repository 公開後已啟用 GitHub secret scanning、push protection、Dependa
 
 所有 repository 與 GitHub Pages URL 已更新。Issues、Discussions、私密漏洞通報、治理標籤、MIT License、Fork、Issue Forms 與 Pull Request 模板均已啟用。新 GitHub Pages 網址已回傳 HTTP 200，品牌名稱與 Logo 資產均正常載入。
 
+## GitHub 公開驗證
+
+2026 年 9 月 17 日已用未帶 GitHub Token 的 HTTPS Clone 驗證公開存取，匿名 Clone 的 HEAD 與發布 commit 一致。GitHub repository 首頁顯示 Public、Fork、Issues、Pull requests、Discussions、Actions、MIT License、紫鳥 Logo 與完整 README；Community Profile 為 100%。Issue 建立頁顯示錯誤回報、資料來源提案、功能或優化提案三種表單，另提供 Security Advisory 私密通報及 Discussions 入口。
+
+GitHub Actions `CI` 已在 main 分支成功完成 frozen-lockfile 安裝、19 項測試、TypeScript 型別檢查與 production build。main 分支現要求 `Test, type-check and build` 成功、至少一筆核准、CODEOWNERS 審查、所有對話解決及線性歷史；禁止 force push 與刪除分支。管理者仍保留緊急繞過權限。
+
 ## References
 
 [1]: https://choosealicense.com/licenses/mit/ "MIT License overview and standard text"

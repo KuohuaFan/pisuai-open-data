@@ -8,6 +8,7 @@
 [![GitHub Pages](https://img.shields.io/badge/project-GitHub%20Pages-b08b35)](https://kuohuafan.github.io/pisuai-open-data/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-31c9a7)](./LICENSE)
 [![Contributions welcome](https://img.shields.io/badge/contributions-welcome-b08b35)](./CONTRIBUTING.md)
+[![CI](https://github.com/KuohuaFan/pisuai-open-data/actions/workflows/ci.yml/badge.svg)](https://github.com/KuohuaFan/pisuai-open-data/actions/workflows/ci.yml)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178c6)
 ![React](https://img.shields.io/badge/React-19-149eca)
 ![Tests](https://img.shields.io/badge/tests-19%20passed-1f9d7a)
