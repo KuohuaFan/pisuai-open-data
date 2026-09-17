@@ -1,8 +1,8 @@
 blank_issues_enabled: false
 contact_links:
   - name: 安全漏洞或敏感資料通報
-    url: https://github.com/KuohuaFan/pisuai-open-data-backup/security/advisories/new
+    url: https://github.com/KuohuaFan/pisuai-open-data/security/advisories/new
     about: 請用 Security Advisory 私密回報，不要建立公開 Issue。
   - name: 使用與部署問題
-    url: https://github.com/KuohuaFan/pisuai-open-data-backup/discussions
+    url: https://github.com/KuohuaFan/pisuai-open-data/discussions
     about: 一般問題、想法交流與部署經驗請使用 Discussions。

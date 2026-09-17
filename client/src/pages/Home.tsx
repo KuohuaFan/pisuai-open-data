@@ -45,7 +45,7 @@ export default function Home() {
                 資料有來源，<br /><span className="text-gold-dark">判斷才有重量。</span>
               </h1>
               <p className="mt-8 max-w-2xl text-lg leading-9 text-ink/67">
-                PiSuAI｜貔貅智慧收錄臺灣官方與民間開放資料，將授權、版本、更新與風險放在同一條證據鏈上，再把資料轉化為可核實的深度報導。
+                PiSuAI|紫鳥貔貅收錄臺灣官方與民間開放資料，將授權、版本、更新與風險放在同一條證據鏈上，再把資料轉化為可核實的深度報導。
               </p>
               <div className="mt-10 flex flex-wrap gap-3">
                 <Button asChild size="lg" className="rounded-none px-7"><Link href="/government-data"><Search className="mr-2 size-4" />搜尋政府資料全集</Link></Button>

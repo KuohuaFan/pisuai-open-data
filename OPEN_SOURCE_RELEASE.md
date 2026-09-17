@@ -3,13 +3,15 @@
 ## 擬執行的公開設定
 
 | 項目            | 設定                                                                       |
-| --------------- | -------------------------------------------------------------------------- |
-| Repository 名稱 | `KuohuaFan/pisuai-open-data`，由目前的 `pisuai-open-data-backup` 重新命名  |
+| --------------- | -------------------------------------------------------------------------- | --------- |
+| Repository 名稱 | `KuohuaFan/pisuai-open-data`，由目前的 `pisuai-open-data` 重新命名         |
 | 可見性          | `Public`，任何人都能瀏覽、Clone 與 Fork                                    |
 | 程式碼授權      | MIT License；Copyright (c) 2026 KuohuaFan and PiSuAI contributors          |
 | 社群入口        | Issues、Discussions、Pull Requests 與三種結構化 Issue Forms                |
 | GitHub Pages    | 改用 `https://kuohuafan.github.io/pisuai-open-data/`，來源仍為 `main/docs` |
 | 完整平臺        | `https://opendataset.manus.space/`，不因 repository 公開而改變             |
+| 品牌名稱        | `PiSuAI                                                                    | 紫鳥貔貅` |
+| 品牌 Logo       | 使用者提供的紫鳥圓形 Logo；提供 WebP 與 favicon PNG                        |
 
 ## 將公開的內容
 
@@ -21,11 +23,11 @@ Repository 不包含正式資料庫內容、全國政府資料 CSV 快照、`.en
 
 ## 權利邊界
 
-MIT License 只涵蓋本專案自行提供的程式碼與技術文件，不會把政府資料、民間資料、第三方附件或 API 回應重新授權。`PiSuAI`、`PiSuAI｜貔貅智慧` 與品牌識別不因程式碼開源而授權第三人表示官方關係或背書。Fork 可以說明其源自 PiSuAI，但應清楚標示修改者與非官方性質。
+MIT License 只涵蓋本專案自行提供的程式碼與技術文件，不會把政府資料、民間資料、第三方附件或 API 回應重新授權。`PiSuAI`、`PiSuAI|紫鳥貔貅` 與品牌識別不因程式碼開源而授權第三人表示官方關係或背書。Fork 可以說明其源自 PiSuAI，但應清楚標示修改者與非官方性質。
 
 ## 驗證結果
 
-Gitleaks 8.30.1 已掃描即將提交的 0.79 MB 公開檔案與 1.72 MB 完整 Git diff 歷史，結果均為 0 個 secrets。Git 歷史共 9 個既有 commit，最大 blob 約 323 KB，沒有資料庫 dump 或大型資料檔。6 個測試檔共 16 項測試全部通過，TypeScript 檢查與 production build 亦通過。Issue Form YAML、JSON、Markdown 本地連結與必要文件均已驗證。
+Gitleaks 8.30.1 已掃描即將提交的公開檔案與完整 Git diff 歷史，結果均為 0 個 secrets。Git 歷史最大 blob 約 323 KB，沒有資料庫 dump 或大型資料檔。7 個測試檔共 19 項測試全部通過，TypeScript 檢查與 production build 亦通過。Issue Form YAML、JSON、Markdown 本地連結與必要文件均已驗證。
 
 ## 公開後立即設定
 

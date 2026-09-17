@@ -9,8 +9,25 @@ import {
   unicodeLength,
 } from "../shared/homeSeo";
 
-const indexPath = fileURLToPath(new URL("../client/index.html", import.meta.url));
+const indexPath = fileURLToPath(
+  new URL("../client/index.html", import.meta.url)
+);
 const indexHtml = readFileSync(indexPath, "utf8");
+
+function getStaticTitle() {
+  return indexHtml
+    .match(/<title>([\s\S]*?)<\/title>/i)?.[1]
+    ?.replace(/\s+/g, " ")
+    .trim();
+}
+
+function getStaticMetaContent(name: string) {
+  const tags = indexHtml.match(/<meta\b[^>]*>/gi) ?? [];
+  const tag = tags.find(candidate =>
+    new RegExp(`name=["']${name}["']`, "i").test(candidate)
+  );
+  return tag?.match(/content=["']([^"']*)["']/i)?.[1];
+}
 
 describe("homepage SEO constraints", () => {
   it("keeps the title and description inside their strict character limits", () => {
@@ -27,8 +44,8 @@ describe("homepage SEO constraints", () => {
   });
 
   it("keeps the static crawler fallback synchronized", () => {
-    expect(indexHtml).toContain(`<title>${HOME_TITLE}</title>`);
-    expect(indexHtml).toContain(`name="description" content="${HOME_DESCRIPTION}"`);
-    expect(indexHtml).toContain(`name="keywords" content="${HOME_KEYWORDS_CONTENT}"`);
+    expect(getStaticTitle()).toBe(HOME_TITLE);
+    expect(getStaticMetaContent("description")).toBe(HOME_DESCRIPTION);
+    expect(getStaticMetaContent("keywords")).toBe(HOME_KEYWORDS_CONTENT);
   });
 });

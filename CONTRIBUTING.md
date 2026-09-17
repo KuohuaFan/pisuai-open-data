@@ -1,6 +1,6 @@
 # 貢獻 PiSuAI
 
-感謝您協助改善 PiSuAI｜貔貅智慧。此專案接受程式碼、測試、文件、無障礙、資料治理規則、資料來源查核與介面設計等貢獻。
+感謝您協助改善 PiSuAI|紫鳥貔貅。此專案接受程式碼、測試、文件、無障礙、資料治理規則、資料來源查核與介面設計等貢獻。
 
 ## 開始之前
 
@@ -16,8 +16,8 @@
 4. 套用 migration，匯入治理來源，啟動開發伺服器。
 
 ```bash
-git clone https://github.com/<YOUR_ACCOUNT>/pisuai-open-data-backup.git
-cd pisuai-open-data-backup
+git clone https://github.com/<YOUR_ACCOUNT>/pisuai-open-data.git
+cd pisuai-open-data
 corepack enable
 pnpm install
 

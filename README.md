@@ -1,19 +1,23 @@
-# PiSuAI｜貔貅智慧・臺灣開放資料與深度報導平台
+# PiSuAI|紫鳥貔貅・臺灣開放資料與深度報導平台
+
+<p align="center">
+  <img src="./docs/assets/pisuai-purple-bird-logo.webp" alt="PiSuAI|紫鳥貔貅 Logo" width="144" height="144" />
+</p>
 
 [![Website](https://img.shields.io/badge/website-opendataset.manus.space-06252d)](https://opendataset.manus.space/)
-[![GitHub Pages](https://img.shields.io/badge/project-GitHub%20Pages-b08b35)](https://kuohuafan.github.io/pisuai-open-data-backup/)
+[![GitHub Pages](https://img.shields.io/badge/project-GitHub%20Pages-b08b35)](https://kuohuafan.github.io/pisuai-open-data/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-31c9a7)](./LICENSE)
 [![Contributions welcome](https://img.shields.io/badge/contributions-welcome-b08b35)](./CONTRIBUTING.md)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178c6)
 ![React](https://img.shields.io/badge/React-19-149eca)
-![Tests](https://img.shields.io/badge/tests-16%20passed-1f9d7a)
+![Tests](https://img.shields.io/badge/tests-19%20passed-1f9d7a)
 ![Government datasets](https://img.shields.io/badge/government%20datasets-53%2C169-b08b35)
 
-**PiSuAI｜貔貅智慧**是一個以來源追溯、權利分級與人工發布閘門為核心的臺灣開放資料平台。專案以 MIT License 開放原始碼，歡迎 Fork、部署、提出 Issue、送出 Pull Request，或協助查核新的資料來源。系統將政府資料開放平臺的全國資料目錄轉化為可搜尋索引，同時維護一層經人工判讀的官方與民間來源庫。平台也能依已核准來源產生具引用的深度報導草稿，但不允許 AI 跳過人工審核直接發布。
+**PiSuAI|紫鳥貔貅**是一個以來源追溯、權利分級與人工發布閘門為核心的臺灣開放資料平台。專案以 MIT License 開放原始碼，歡迎 Fork、部署、提出 Issue、送出 Pull Request，或協助查核新的資料來源。系統將政府資料開放平臺的全國資料目錄轉化為可搜尋索引，同時維護一層經人工判讀的官方與民間來源庫。平台也能依已核准來源產生具引用的深度報導草稿，但不允許 AI 跳過人工審核直接發布。
 
 完整全端網站：[https://opendataset.manus.space/](https://opendataset.manus.space/)
 
-GitHub Pages 專案介紹：[https://kuohuafan.github.io/pisuai-open-data-backup/](https://kuohuafan.github.io/pisuai-open-data-backup/)
+GitHub Pages 專案介紹：[https://kuohuafan.github.io/pisuai-open-data/](https://kuohuafan.github.io/pisuai-open-data/)
 
 > **核心原則：來源可追、版本可核、權利先行、錯誤可改。** 收錄 metadata 不表示 PiSuAI 已驗證每筆原始資料，也不表示資料可以不受限制地重新利用。
 
@@ -21,14 +25,14 @@ GitHub Pages 專案介紹：[https://kuohuafan.github.io/pisuai-open-data-backup
 
 您可以直接 Fork 本專案建立自己的資料平台，也可以透過 Issue 與 Pull Request 改善 PiSuAI。開始前請閱讀 [`CONTRIBUTING.md`](./CONTRIBUTING.md)，並參考 [`ROADMAP.md`](./ROADMAP.md) 選擇可立即執行的優化項目。
 
-| 參與方式     | 適合內容                                         | 入口                                                                                                             |
-| ------------ | ------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------- |
-| Fork 與部署  | 自建資料平台、替換品牌、串接自己的驗證或模型服務 | GitHub 的 **Fork** 按鈕                                                                                          |
-| 錯誤回報     | 可重現的程式、介面、同步或文件錯誤               | [Bug report](https://github.com/KuohuaFan/pisuai-open-data-backup/issues/new?template=bug_report.yml)            |
-| 功能提案     | 搜尋、效能、架構、無障礙與部署改善               | [Feature proposal](https://github.com/KuohuaFan/pisuai-open-data-backup/issues/new?template=feature_request.yml) |
-| 資料來源提案 | 新增或修正臺灣官方、民間與 GitHub 資料來源       | [Data source proposal](https://github.com/KuohuaFan/pisuai-open-data-backup/issues/new?template=data_source.yml) |
-| 程式貢獻     | 程式碼、測試、文件、治理規則與可重現的效能改善   | [貢獻指南](./CONTRIBUTING.md)                                                                                    |
-| 安全通報     | 漏洞、憑證、未公開個資或可能造成資料外洩的問題   | [安全政策](./SECURITY.md)                                                                                        |
+| 參與方式     | 適合內容                                         | 入口                                                                                                      |
+| ------------ | ------------------------------------------------ | --------------------------------------------------------------------------------------------------------- |
+| Fork 與部署  | 自建資料平台、替換品牌、串接自己的驗證或模型服務 | GitHub 的 **Fork** 按鈕                                                                                   |
+| 錯誤回報     | 可重現的程式、介面、同步或文件錯誤               | [Bug report](https://github.com/KuohuaFan/pisuai-open-data/issues/new?template=bug_report.yml)            |
+| 功能提案     | 搜尋、效能、架構、無障礙與部署改善               | [Feature proposal](https://github.com/KuohuaFan/pisuai-open-data/issues/new?template=feature_request.yml) |
+| 資料來源提案 | 新增或修正臺灣官方、民間與 GitHub 資料來源       | [Data source proposal](https://github.com/KuohuaFan/pisuai-open-data/issues/new?template=data_source.yml) |
+| 程式貢獻     | 程式碼、測試、文件、治理規則與可重現的效能改善   | [貢獻指南](./CONTRIBUTING.md)                                                                             |
+| 安全通報     | 漏洞、憑證、未公開個資或可能造成資料外洩的問題   | [安全政策](./SECURITY.md)                                                                                 |
 
 程式碼、上游資料與 PiSuAI 品牌並非同一組權利。公開部署 Fork 前，請閱讀 [`TRADEMARKS_AND_DATA.md`](./TRADEMARKS_AND_DATA.md)。
 
@@ -44,7 +48,7 @@ GitHub Pages 專案介紹：[https://kuohuafan.github.io/pisuai-open-data-backup
 | 政府服務分類        |      18 類 |
 | 人工治理來源卡      |      39 筆 |
 | 治理來源類別        |      20 類 |
-| 自動化測試          |  16 項通過 |
+| 自動化測試          |  19 項通過 |
 
 詳細驗證過程見 [`government-catalog-qa.md`](./government-catalog-qa.md)，已查核的政府資料入口與同步限制見 [`government-data-source-map.md`](./government-data-source-map.md)。
 
@@ -114,8 +118,8 @@ flowchart LR
 請使用 **Node.js 22**、**pnpm 10**，並準備一個 MySQL 8 相容或 TiDB 資料庫。Manus OAuth 與內建模型功能需要相應的應用程式環境變數。
 
 ```bash
-git clone https://github.com/KuohuaFan/pisuai-open-data-backup.git
-cd pisuai-open-data-backup
+git clone https://github.com/KuohuaFan/pisuai-open-data.git
+cd pisuai-open-data
 corepack enable
 pnpm install
 ```
@@ -200,7 +204,7 @@ pnpm check
 pnpm build
 ```
 
-目前測試涵蓋 OAuth 登出、首頁 SEO 限制、擴充來源唯一性、政府專業來源治理、資料欄位正規化、下架狀態、臺北時區日期計算及報導安全降級。最近一次驗證為 **6 個測試檔、16 項測試全部通過**，TypeScript 檢查與 production build 亦通過。
+目前測試涵蓋品牌與 Logo 設定、OAuth 登出、首頁 SEO 限制、擴充來源唯一性、政府專業來源治理、資料欄位正規化、下架狀態、臺北時區日期計算及報導安全降級。最近一次驗證為 **7 個測試檔、19 項測試全部通過**，TypeScript 檢查與 production build 亦通過。
 
 ## 專案結構
 
@@ -242,7 +246,7 @@ shared/                    前後端共用常數與型別
 
 本專案自行提供的程式碼與技術文件採 [MIT License](./LICENSE)。政府資料、民間資料、附件、圖片與第三方內容仍適用各自的原始授權及使用條件；本專案的 MIT License 不會自動授權這些內容。
 
-`PiSuAI`、`PiSuAI｜貔貅智慧`、標誌及其他來源識別不因程式碼開源而自動授權第三人用於表示官方關係或背書。完整邊界見 [`TRADEMARKS_AND_DATA.md`](./TRADEMARKS_AND_DATA.md)。
+`PiSuAI`、`PiSuAI|紫鳥貔貅`、標誌及其他來源識別不因程式碼開源而自動授權第三人用於表示官方關係或背書。完整邊界見 [`TRADEMARKS_AND_DATA.md`](./TRADEMARKS_AND_DATA.md)。
 
 ## References
 

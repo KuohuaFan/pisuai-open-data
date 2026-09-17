@@ -4,13 +4,13 @@
   "description": "PiSuAI open-source Taiwan public-data registry, governance and evidence-based reporting platform",
   "type": "module",
   "license": "MIT",
-  "homepage": "https://kuohuafan.github.io/pisuai-open-data-backup/",
+  "homepage": "https://kuohuafan.github.io/pisuai-open-data/",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/KuohuaFan/pisuai-open-data-backup.git"
+    "url": "git+https://github.com/KuohuaFan/pisuai-open-data.git"
   },
   "bugs": {
-    "url": "https://github.com/KuohuaFan/pisuai-open-data-backup/issues"
+    "url": "https://github.com/KuohuaFan/pisuai-open-data/issues"
   },
   "engines": {
     "node": ">=22",
