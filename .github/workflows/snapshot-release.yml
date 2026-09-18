@@ -2,6 +2,11 @@ name: Government catalog snapshot release
 
 on:
   workflow_dispatch:
+    inputs:
+      snapshot_date:
+        description: "Snapshot date (YYYY-MM-DD); leave blank for the current Taipei date"
+        required: false
+        type: string
 
 permissions:
   contents: write
@@ -35,7 +40,15 @@ jobs:
         id: snapshot
         shell: bash
         run: |
-          snapshot_date="$(TZ=Asia/Taipei date +%F)"
+          snapshot_date='${{ inputs.snapshot_date }}'
+          if [[ -z "$snapshot_date" ]]; then
+            snapshot_date="$(TZ=Asia/Taipei date +%F)"
+          fi
+          if [[ ! "$snapshot_date" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]] || \
+             [[ "$(date -u -d "$snapshot_date" +%F 2>/dev/null)" != "$snapshot_date" ]]; then
+            echo "snapshot_date must be a valid YYYY-MM-DD date" >&2
+            exit 1
+          fi
           echo "date=$snapshot_date" >> "$GITHUB_OUTPUT"
           echo "tag=catalog-$snapshot_date" >> "$GITHUB_OUTPUT"
 
