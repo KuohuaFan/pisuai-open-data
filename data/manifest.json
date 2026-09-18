@@ -12,7 +12,7 @@
   "attribution": "資料來源：數位發展部 2026「政府資料開放平臺資料集清單」（data.gov.tw，2026-09-15 快照），依政府資料開放授權條款第 1 版利用；本索引為 metadata 再整理，非原始資料，亦非經人工查核之來源卡。",
   "publisher": "評律數位科技股份有限公司",
   "publisherDisplay": "評律數位科技股份有限公司（PingLex Digital Technology Co., Ltd.）",
-  "generatorCommit": "048746da4c7bde74b44290b34c2795dae42ebd3e",
+  "generatorCommit": "6e60c1e53990c483152d12e41cd104f94d41da75",
   "asset": "gov-catalog-snapshot-2026-09-15.csv.gz",
   "releaseTag": "catalog-2026-09-15",
   "releaseUrl": "https://github.com/KuohuaFan/pisuai-open-data/releases/tag/catalog-2026-09-15",
