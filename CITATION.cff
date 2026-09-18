@@ -2,7 +2,8 @@ cff-version: 1.2.0
 message: "If you use PiSuODS, please cite it using the metadata in this file."
 title: "PiSuODS: PiSuAI Open Data System"
 authors:
-  - name: PiSuAI
+  - name: "PingLex Digital Technology Co., Ltd."
+    alias: "評律數位科技"
 repository-code: "https://github.com/KuohuaFan/pisuai-open-data"
 license: MIT
 version: 0.1.0

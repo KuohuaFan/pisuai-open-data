@@ -260,7 +260,7 @@ docs/assets/               品牌資產（不適用 MIT，見 docs/assets/NOTICE
 
 學術或報告引用時，請引用 repository 與所用 commit 或版本標籤；機器可讀格式見 [`CITATION.cff`](./CITATION.cff)。
 
-> PiSuAI. (2026). *PiSuODS: PiSuAI Open Data System*（版本或 commit）。GitHub. https://github.com/KuohuaFan/pisuai-open-data
+> 評律數位科技 PingLex Digital Technology Co., Ltd. (2026). *PiSuODS: PiSuAI Open Data System*（版本或 commit）。GitHub. https://github.com/KuohuaFan/pisuai-open-data
 
 ## 授權
 
