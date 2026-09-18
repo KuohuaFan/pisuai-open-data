@@ -16,8 +16,14 @@ describe("PiSuAI brand configuration", () => {
   });
 
   it("keeps homepage SEO aligned with the brand", () => {
-    expect(HOME_TITLE.startsWith(BRAND.name)).toBe(true);
-    expect(HOME_DESCRIPTION.startsWith(BRAND.name)).toBe(true);
+    expect(HOME_TITLE).toBe(
+      "PiSuODS｜PiSuAI 紫鳥貔貅・臺灣開放資料與深度報導平台"
+    );
+    expect(HOME_TITLE).toContain(BRAND.shortName);
+    expect(HOME_TITLE).toContain(BRAND.subtitle);
+    expect(HOME_DESCRIPTION).toBe(
+      "PiSuAI 產品線中的臺灣開放資料平台，以來源追溯、再利用治理分類與人工發布閘門為核心；程式碼 MIT 開源。"
+    );
     expect(HOME_KEYWORDS).toContain(BRAND.name);
   });
 });
