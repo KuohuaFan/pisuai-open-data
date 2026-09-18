@@ -2,7 +2,7 @@
 
 ## 全國聯邦目錄
 
-政府資料開放平臺是 PiSuAI 的全國 discovery 層。官方全量目錄位於 `https://data.gov.tw/api/v2/rest/dataset/export`，每日異動位於 `https://data.gov.tw/api/front/dataset/changed/export?format=json&report_date=YYYY-MM-DD`，單筆 metadata 可由 `https://data.gov.tw/api/v2/rest/dataset/{datasetId}` 取得。全量匯出沒有分頁或游標，適合低頻串流下載；每日異動檔應依「資料集上架、資料集修改、資料集下架」狀態處理，缺少狀態者不可直接寫入。
+政府資料開放平臺是 PiSuAI™ 的全國 discovery 層。官方全量目錄位於 `https://data.gov.tw/api/v2/rest/dataset/export`，每日異動位於 `https://data.gov.tw/api/front/dataset/changed/export?format=json&report_date=YYYY-MM-DD`，單筆 metadata 可由 `https://data.gov.tw/api/v2/rest/dataset/{datasetId}` 取得。全量匯出沒有分頁或游標，適合低頻串流下載；每日異動檔應依「資料集上架、資料集修改、資料集下架」狀態處理，缺少狀態者不可直接寫入。
 
 2026 年 9 月 15 日快照經正式 CSV parser 確認有 53,169 筆唯一 datasetId、800 個提供機關標籤與 18 類服務分類。目錄主要採政府資料開放授權條款第 1 版，另有 CC0、CC BY、CC BY-SA 與 OFL；因此 PiSuAI 必須逐筆保存授權，不能把整個目錄一律改標為同一授權。官方條款為 `https://data.gov.tw/license`。
 
