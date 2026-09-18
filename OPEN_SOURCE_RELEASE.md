@@ -27,7 +27,7 @@ MIT License 只涵蓋本專案自行提供的程式碼與技術文件，不會�
 
 ## 驗證結果
 
-Gitleaks 8.30.1 已掃描即將提交的公開檔案與完整 Git diff 歷史，結果均為 0 個 secrets。Git 歷史最大 blob 約 323 KB，沒有資料庫 dump 或大型資料檔。8 個測試檔共 23 項測試全部通過，TypeScript 檢查與 production build 亦通過。Issue Form YAML、JSON、Markdown 本地連結與必要文件均已驗證。
+Gitleaks 8.30.1 已掃描即將提交的公開檔案與完整 Git diff 歷史，結果均為 0 個 secrets。Git 歷史最大 blob 約 323 KB，沒有資料庫 dump 或大型資料檔。9 個測試檔共 28 項測試全部通過，TypeScript 檢查與 production build 亦通過。Issue Form YAML、JSON、Markdown 本地連結與必要文件均已驗證。
 
 報導草稿自動化已改用 `generate-report-draft` key 與 `/api/scheduled/generate-report-draft` 路徑。`0004_rename_report_automation_key.sql` 會保留既有 task UID 與執行紀錄，並提供一個大版本的舊 key 相容期；正式部署必須同時套用 migration 並更新 Manus 排程路徑。
 

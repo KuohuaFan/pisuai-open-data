@@ -130,7 +130,7 @@ git clone https://github.com/KuohuaFan/pisuai-open-data.git
 cd pisuai-open-data
 corepack enable
 pnpm install
-cp .env.example .env
+pnpm setup:env
 ```
 
 編輯 `.env` 填入下一節所列的環境變數。完成後，套用既有 migration 並匯入治理來源卡：
@@ -161,7 +161,7 @@ pnpm dev
 | `BUILT_IN_FORGE_API_URL` | LLM 服務入口               | AI 功能必要  |
 | `BUILT_IN_FORGE_API_KEY` | LLM 服務伺服器端金鑰       | AI 功能必要  |
 
-本機 `.env` 已由 `.gitignore` 排除；`.env.example` 只含變數名稱與說明，不含任何實值。正式機密應由部署平台的 secret manager 管理。
+本機 `.env` 已由 `.gitignore` 排除；`env.example` 只含變數名稱與說明，`pnpm setup:env` 會將其複製為 `.env`。正式機密應由部署平台的 secret manager 管理。
 
 ## 建立政府資料全集
 
