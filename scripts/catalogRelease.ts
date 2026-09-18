@@ -5,7 +5,11 @@ import { basename, join } from "node:path";
 import { pipeline } from "node:stream/promises";
 import { createGunzip } from "node:zlib";
 import { z } from "zod";
-import { CATALOG_LICENSE_URL, CATALOG_SOURCE_URL } from "../shared/attribution";
+import {
+  CATALOG_LICENSE_URL,
+  CATALOG_SOURCE_URL,
+  CATALOG_STRIPPED_FIELDS,
+} from "../shared/attribution";
 import { verifySnapshotChecksum } from "./catalogSnapshot";
 
 const DEFAULT_REPOSITORY = "KuohuaFan/pisuai-open-data";
@@ -24,6 +28,10 @@ export const catalogReleaseManifestSchema = z.object({
   attribution: z.string().min(1),
   publisher: z.literal("評律數位科技股份有限公司"),
   publisherDisplay: z.string().min(1),
+  strippedFields: z.tuple([
+    z.literal(CATALOG_STRIPPED_FIELDS[0]),
+    z.literal(CATALOG_STRIPPED_FIELDS[1]),
+  ]),
   generatorCommit: z.string().regex(/^[a-f0-9]{7,40}$/i),
   asset: z.string().regex(/^gov-catalog-snapshot-\d{4}-\d{2}-\d{2}\.csv\.gz$/),
 });

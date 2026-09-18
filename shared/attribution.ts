@@ -6,6 +6,11 @@ export const CATALOG_LICENSE_URL = "https://data.gov.tw/license";
 export const CATALOG_PUBLISHER = "評律數位科技股份有限公司";
 export const CATALOG_PUBLISHER_ENGLISH = "PingLex Digital Technology Co., Ltd.";
 export const CATALOG_PUBLISHER_BILINGUAL = `${CATALOG_PUBLISHER}（${CATALOG_PUBLISHER_ENGLISH}）`;
+export const CATALOG_OFFICIAL_COLUMN_COUNT = 22;
+export const CATALOG_STRIPPED_FIELDS = [
+  "提供機關聯絡人姓名",
+  "提供機關聯絡人電話",
+] as const;
 
 export function assertSnapshotDate(snapshotDate: string) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(snapshotDate)) {

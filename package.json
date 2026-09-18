@@ -24,6 +24,7 @@
     "format": "prettier --write .",
     "test": "vitest run",
     "test:migration:report-automation": "tsx scripts/verifyReportAutomationMigration.ts",
+    "catalog:sanitize": "tsx scripts/sanitizeCatalogCsv.ts",
     "catalog:snapshot": "tsx scripts/createCatalogSnapshot.ts",
     "catalog:verify": "tsx scripts/verifyCatalogReleaseAssets.ts",
     "catalog:sample": "tsx scripts/createCatalogSample.ts",

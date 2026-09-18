@@ -30,7 +30,31 @@ describe("government catalog normalization", () => {
       lastSeenAt: 123456,
     });
     expect(row).not.toHaveProperty("提供機關聯絡人姓名");
+    expect(row).not.toHaveProperty("提供機關聯絡人電話");
     expect(row?.modifiedAt).toBeTypeOf("number");
+  });
+
+  it("accepts stripped contact fields as empty strings", () => {
+    const row = normalizeGovernmentRow(
+      {
+        資料集識別碼: "6564-redacted",
+        資料集名稱: "去識別目錄",
+        服務分類: "公共資訊",
+        提供機關: "數位發展部",
+        提供機關聯絡人姓名: "",
+        提供機關聯絡人電話: "",
+      },
+      123456
+    );
+
+    expect(row).toMatchObject({
+      datasetId: "6564-redacted",
+      title: "去識別目錄",
+      publisher: "數位發展部",
+      status: "active",
+    });
+    expect(row).not.toHaveProperty("提供機關聯絡人姓名");
+    expect(row).not.toHaveProperty("提供機關聯絡人電話");
   });
 
   it("preserves withdrawn state from a delta record", () => {

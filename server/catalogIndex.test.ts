@@ -27,6 +27,7 @@ const manifest: CatalogReleaseManifest = {
   publisher: "評律數位科技股份有限公司",
   publisherDisplay:
     "評律數位科技股份有限公司（PingLex Digital Technology Co., Ltd.）",
+  strippedFields: ["提供機關聯絡人姓名", "提供機關聯絡人電話"],
   generatorCommit: "0123456789abcdef",
   asset: "gov-catalog-snapshot-2026-09-15.csv.gz",
 };

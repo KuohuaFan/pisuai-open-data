@@ -8,8 +8,10 @@ import { parse } from "csv-parse";
 import {
   CATALOG_LICENSE_NAME,
   CATALOG_LICENSE_URL,
+  CATALOG_OFFICIAL_COLUMN_COUNT,
   CATALOG_PUBLISHER,
   CATALOG_PUBLISHER_BILINGUAL,
+  CATALOG_STRIPPED_FIELDS,
   CATALOG_SOURCE_PAGE,
   CATALOG_SOURCE_URL,
   assertSnapshotDate,
@@ -27,6 +29,7 @@ export type CatalogSnapshotManifest = {
   attribution: string;
   publisher: string;
   publisherDisplay: string;
+  strippedFields: string[];
   generatorCommit: string;
   asset: string;
 };
@@ -34,12 +37,25 @@ export type CatalogSnapshotManifest = {
 export async function inspectCatalogCsv(path: string) {
   let rowCount = 0;
   const ids = new Set<string>();
+  let columns: string[] = [];
   const parser = createReadStream(path).pipe(
     parse({
       bom: true,
-      columns: true,
+      columns: header => {
+        columns = header.map((value: unknown) => String(value));
+        if (columns.length !== CATALOG_OFFICIAL_COLUMN_COUNT) {
+          throw new Error(
+            `Expected ${CATALOG_OFFICIAL_COLUMN_COUNT} official catalog columns, received ${columns.length}`
+          );
+        }
+        for (const field of CATALOG_STRIPPED_FIELDS) {
+          if (!columns.includes(field)) {
+            throw new Error(`Required contact field was not found: ${field}`);
+          }
+        }
+        return columns;
+      },
       relax_quotes: true,
-      relax_column_count: true,
       skip_empty_lines: true,
     })
   );
@@ -47,6 +63,13 @@ export async function inspectCatalogCsv(path: string) {
   for await (const raw of parser) {
     const row = raw as Record<string, unknown>;
     rowCount += 1;
+    for (const field of CATALOG_STRIPPED_FIELDS) {
+      if (String(row[field] ?? "").trim()) {
+        throw new Error(
+          `Catalog privacy validation failed: ${field} must be empty in row ${rowCount}`
+        );
+      }
+    }
     const id = String(row["資料集識別碼"] ?? "").trim();
     if (id) ids.add(id);
   }
@@ -147,6 +170,7 @@ export async function createCatalogSnapshotAssets(
     attribution: catalogAttribution(snapshotDate),
     publisher: CATALOG_PUBLISHER,
     publisherDisplay: CATALOG_PUBLISHER_BILINGUAL,
+    strippedFields: [...CATALOG_STRIPPED_FIELDS],
     generatorCommit,
     asset,
   };
@@ -166,6 +190,7 @@ export async function createCatalogSnapshotAssets(
       `- 唯一 datasetId：${manifest.uniqueDatasetIds.toLocaleString("en-US")}`,
       `- SHA-256：\`${manifest.sha256}\``,
       `- 整理與發布：${manifest.publisherDisplay}`,
+      `- 已移除欄位：${manifest.strippedFields.join("、")}`,
       "",
       "此快照與衍生索引不適用本 repository 的 MIT License；各筆資料仍依其原始授權欄位及官方頁面所載條件利用。",
       "",
