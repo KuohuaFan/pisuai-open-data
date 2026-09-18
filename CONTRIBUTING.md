@@ -32,6 +32,8 @@ Manus OAuth、內建 LLM、通知及儲存服務使用 Manus WebDev 提供的環
 
 程式碼應維持 TypeScript 型別安全。前端透過 tRPC 存取後端，不新增平行的 Axios 或自製 REST 資料層。資料庫變更必須同時更新 `drizzle/schema.ts`，產生 migration，並人工審查 SQL。
 
+涉及既有資料的 migration，須先以正式資料庫的 SELECT 結果確認實際值，再撰寫 migration；以程式常數 seed 出來的測試資料庫不構成驗證。
+
 ```bash
 pnpm exec drizzle-kit generate
 pnpm test -- --run

@@ -75,8 +75,14 @@ describe("scheduled report route naming", () => {
   });
 
   it("accepts only the current or legacy report automation key for task UID execution", () => {
+    expect(LEGACY_REPORT_AUTOMATION_KEY).toBe("biennial-report");
     expect(isReportAutomationConfigKey(REPORT_AUTOMATION_KEY)).toBe(true);
     expect(isReportAutomationConfigKey(LEGACY_REPORT_AUTOMATION_KEY)).toBe(true);
     expect(isReportAutomationConfigKey("government-catalog-sync")).toBe(false);
+
+    const migration = readProjectFile("drizzle/0005_rename_biennial_report_key.sql");
+    expect(migration).toContain("`legacy`.`key` = 'biennial-report'");
+    expect(migration).toContain("WHERE `key` = 'biennial-report'");
+    expect(migration).toContain("-- Down migration (manual and idempotent):");
   });
 });
