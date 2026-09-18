@@ -38,6 +38,16 @@ jobs:
             fi
           done < <(git rev-list --reverse "$BASE_SHA..$HEAD_SHA")
           exit "$missing"
+      - name: Reject tracked files over 1 MB
+        shell: bash
+        run: |
+          oversized="$(find . -path ./node_modules -prune -o -path ./.git -prune -o -type f -size +1M -print | while read -r file; do
+            git ls-files --error-unmatch "${file#./}" >/dev/null 2>&1 && printf '%s\n' "$file"
+          done)"
+          if [[ -n "$oversized" ]]; then
+            printf 'Tracked files over 1 MB are not allowed:\n%s\n' "$oversized" >&2
+            exit 1
+          fi
       - name: Set up pnpm
         uses: pnpm/action-setup@v4
         with:

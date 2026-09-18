@@ -15,7 +15,10 @@
     <meta name="theme-color" content="#071f27" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="zh_TW" />
-    <meta property="og:title" content="PiSuODS｜PiSuAI 紫鳥貔貅・臺灣開放資料與深度報導平台" />
+    <meta
+      property="og:title"
+      content="PiSuODS｜PiSuAI 紫鳥貔貅・臺灣開放資料與深度報導平台"
+    />
     <meta
       property="og:description"
       content="來源可追、版本可核、權利先行、錯誤可改。探索臺灣政府資料全集與經人工查核的治理來源。"
@@ -69,6 +72,7 @@
 
         <nav id="main-nav" class="main-nav" aria-label="主要導覽">
           <a href="#overview">專案總覽</a>
+          <a href="./catalog/">目錄索引</a>
           <a href="#architecture">系統架構</a>
           <a href="#governance">治理原則</a>
           <a href="#start">開始使用</a>
@@ -104,6 +108,9 @@
                 rel="noreferrer"
               >
                 搜尋政府資料全集 <span aria-hidden="true">→</span>
+              </a>
+              <a class="button button-ghost" href="./catalog/">
+                瀏覽目錄索引 <span aria-hidden="true">→</span>
               </a>
               <a
                 class="button button-ghost"
@@ -143,7 +150,7 @@
               <span class="orbit orbit-one"></span>
               <span class="orbit orbit-two"></span>
               <div>
-                <strong>53,169</strong>
+                <strong data-catalog-total>53,169</strong>
                 <small>government datasets</small>
               </div>
             </div>
@@ -161,13 +168,20 @@
                 ><small>AI 草稿 → 人工核准</small>
               </div>
             </div>
-            <div class="registry-stamp">2026.09 snapshot</div>
+            <div class="registry-stamp" data-catalog-snapshot>
+              2026-09-15 snapshot
+            </div>
           </aside>
         </div>
 
         <div class="shell metrics" aria-label="專案統計">
-          <div><strong>53,169</strong><span>政府資料集 metadata</span></div>
-          <div><strong>800</strong><span>提供機關標籤</span></div>
+          <div>
+            <strong data-catalog-total>53,169</strong
+            ><span>政府資料集 metadata</span>
+          </div>
+          <div>
+            <strong data-catalog-agencies>800</strong><span>提供機關標籤</span>
+          </div>
           <div><strong>39</strong><span>人工治理來源</span></div>
           <div><strong>48h</strong><span>深度報導節奏</span></div>
         </div>

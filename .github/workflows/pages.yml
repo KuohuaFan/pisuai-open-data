@@ -1,0 +1,132 @@
+name: Deploy GitHub Pages
+
+on:
+  release:
+    types: [published]
+  push:
+    branches: [main]
+    paths:
+      - "docs/**"
+      - "data/**"
+      - "scripts/buildCatalogIndex.ts"
+      - "scripts/catalogRelease.ts"
+      - "scripts/catalogSnapshot.ts"
+      - "scripts/updatePagesCatalogMetadata.ts"
+      - ".github/workflows/pages.yml"
+      - "package.json"
+      - "pnpm-lock.yaml"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Build and verify the generated site without deploying"
+        required: false
+        default: true
+        type: boolean
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    if: github.event_name != 'release' || startsWith(github.event.release.tag_name, 'catalog-')
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && github.ref || 'main' }}
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.34.5
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Resolve latest catalog release
+        id: catalog
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          release="$(gh api --paginate "repos/$GITHUB_REPOSITORY/releases?per_page=100" \
+            | jq -s 'add | map(select(.draft == false and (.tag_name | startswith("catalog-")))) | sort_by(.tag_name) | last')"
+          if [[ "$release" == "null" ]]; then
+            echo "No catalog-* release was found." >&2
+            exit 1
+          fi
+          echo "tag=$(jq -r .tag_name <<<"$release")" >> "$GITHUB_OUTPUT"
+          echo "url=$(jq -r .html_url <<<"$release")" >> "$GITHUB_OUTPUT"
+
+      - name: Download and verify release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          mkdir -p /tmp/pisuods-release /tmp/pisuods-work
+          gh release download '${{ steps.catalog.outputs.tag }}' \
+            --repo "$GITHUB_REPOSITORY" \
+            --dir /tmp/pisuods-release \
+            --pattern 'gov-catalog-snapshot-*.csv.gz' \
+            --pattern 'gov-catalog-snapshot-*.sha256' \
+            --pattern 'manifest.json'
+          archive="$(find /tmp/pisuods-release -maxdepth 1 -name 'gov-catalog-snapshot-*.csv.gz' -print -quit)"
+          checksum="$(find /tmp/pisuods-release -maxdepth 1 -name 'gov-catalog-snapshot-*.sha256' -print -quit)"
+          pnpm exec tsx scripts/verifyCatalogReleaseAssets.ts \
+            "$archive" "$checksum" /tmp/pisuods-release/manifest.json
+          gzip -dc "$archive" > /tmp/pisuods-work/catalog.csv
+
+      - name: Build static site and catalog index
+        run: |
+          rm -rf _site
+          cp -R docs _site
+          pnpm exec tsx scripts/buildCatalogIndex.ts \
+            /tmp/pisuods-work/catalog.csv \
+            _site/catalog \
+            /tmp/pisuods-release/manifest.json \
+            data/NOTICE \
+            '${{ steps.catalog.outputs.tag }}' \
+            '${{ steps.catalog.outputs.url }}'
+          pnpm exec tsx scripts/updatePagesCatalogMetadata.ts \
+            _site/index.html \
+            _site/catalog/manifest.json
+          touch _site/.nojekyll
+
+      - name: Enforce generated page size
+        run: |
+          oversized="$(find _site/catalog -name '*.md' -type f -size +400k -print)"
+          if [[ -n "$oversized" ]]; then
+            printf 'Generated Markdown files exceed 400 KB:\n%s\n' "$oversized" >&2
+            exit 1
+          fi
+
+      - name: Configure GitHub Pages
+        if: github.event_name != 'workflow_dispatch' || inputs.dry_run != true
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        if: github.event_name != 'workflow_dispatch' || inputs.dry_run != true
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy GitHub Pages
+        if: github.event_name != 'workflow_dispatch' || inputs.dry_run != true
+        id: deployment
+        uses: actions/deploy-pages@v4

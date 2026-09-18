@@ -5,6 +5,9 @@
 # Build outputs
 dist/
 build/
+catalog/
+.pages-build/
+_site/
 *.dist
 
 # Environment variables

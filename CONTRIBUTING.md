@@ -56,6 +56,8 @@ Pull Request 至少應說明變更原因、驗證方式、畫面變更，以及 
 
 請勿提交抓取來的完整敏感資料、未去識別的個人資料、付費內容、登入憑證、政府內部文件或權利不明的附件。收錄 metadata 不代表原始資料已經取得再授權。
 
+完整政府目錄快照、大型生成索引、未經核准的資料庫 dump、備份檔或匯出檔不得提交至 Git 歷史。完整快照只能以 GitHub Release 資產提供，完整 `catalog/` 只能由 Actions 建置。repository 只接受生成腳本、manifest、NOTICE 及 `data/sample/gov-catalog-sample-100.csv` 的 100 筆最小樣本；任何超過 1 MB 的新追蹤檔都會被 CI 拒絕，除非維護者先以獨立提案核准並同步調整 CI 政策。
+
 ## Commit 與 Pull Request
 
 建議使用簡潔的 Conventional Commits，例如：
