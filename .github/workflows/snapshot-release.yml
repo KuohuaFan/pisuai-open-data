@@ -1,5 +1,6 @@
 name: Government catalog snapshot release
 
+
 on:
   workflow_dispatch:
     inputs:
@@ -8,12 +9,15 @@ on:
         required: false
         type: string
 
+
 permissions:
   contents: write
+
 
 concurrency:
   group: government-catalog-snapshot-release
   cancel-in-progress: false
+
 
 jobs:
   snapshot:
@@ -22,10 +26,12 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+
       - name: Set up pnpm
         uses: pnpm/action-setup@v4
         with:
           version: 10.34.5
+
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -33,8 +39,10 @@ jobs:
           node-version: 22
           cache: pnpm
 
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
 
       - name: Resolve snapshot date
         id: snapshot
@@ -52,12 +60,21 @@ jobs:
           echo "date=$snapshot_date" >> "$GITHUB_OUTPUT"
           echo "tag=catalog-$snapshot_date" >> "$GITHUB_OUTPUT"
 
+
       - name: Download official catalog export
         run: |
           mkdir -p /tmp/pisuods-snapshot /tmp/pisuods-release
           curl -L --fail --retry 3 --retry-delay 5 \
             'https://data.gov.tw/api/v2/rest/dataset/export' \
-            -o /tmp/pisuods-snapshot/catalog.csv
+            -o /tmp/pisuods-snapshot/catalog.raw.csv
+
+
+      - name: Strip catalog contact fields
+        run: |
+          pnpm exec tsx scripts/sanitizeCatalogCsv.ts \
+            /tmp/pisuods-snapshot/catalog.raw.csv \
+            /tmp/pisuods-snapshot/catalog.csv
+          rm -f /tmp/pisuods-snapshot/catalog.raw.csv
 
       - name: Validate and build release assets
         run: |
@@ -66,18 +83,3 @@ jobs:
             '${{ steps.snapshot.outputs.date }}' \
             /tmp/pisuods-release \
             "$GITHUB_SHA"
-
-      - name: Publish public non-latest release
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh release create '${{ steps.snapshot.outputs.tag }}' \
-            /tmp/pisuods-release/gov-catalog-snapshot-${{ steps.snapshot.outputs.date }}.csv.gz \
-            /tmp/pisuods-release/gov-catalog-snapshot-${{ steps.snapshot.outputs.date }}.sha256 \
-            /tmp/pisuods-release/manifest.json \
-            --repo "$GITHUB_REPOSITORY" \
-            --target "$GITHUB_SHA" \
-            --title '政府資料目錄快照 ${{ steps.snapshot.outputs.date }}' \
-            --notes-file /tmp/pisuods-release/release-notes.md \
-            --prerelease \
-            --latest=false
