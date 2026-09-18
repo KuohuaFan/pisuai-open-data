@@ -6,7 +6,7 @@
 | --------------- | -------------------------------------------------------------------------- |
 | Repository 名稱 | `KuohuaFan/pisuai-open-data`                                               |
 | 可見性          | `Public`，任何人都能瀏覽、Clone 與 Fork                                    |
-| 程式碼授權      | MIT License；Copyright (c) 2026 KuohuaFan and PiSuAI contributors          |
+| 程式碼授權      | MIT License；Copyright (c) 2026 PingLex Digital Technology Co., Ltd. (評律數位科技股份有限公司) and PiSuODS contributors |
 | 社群入口        | Issues、Discussions、Pull Requests 與三種結構化 Issue Forms                |
 | GitHub Pages    | 改用 `https://kuohuafan.github.io/pisuai-open-data/`，來源仍為 `main/docs` |
 | 完整平臺        | `https://opendataset.manus.space/`，不因 repository 公開而改變             |
