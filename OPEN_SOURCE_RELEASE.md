@@ -2,16 +2,16 @@
 
 ## 已完成的公開設定
 
-| 項目            | 設定                                                                       |
-| --------------- | -------------------------------------------------------------------------- |
-| Repository 名稱 | `KuohuaFan/pisuai-open-data`                                               |
-| 可見性          | `Public`，任何人都能瀏覽、Clone 與 Fork                                    |
+| 項目            | 設定                                                                                                                     |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Repository 名稱 | `KuohuaFan/pisuai-open-data`                                                                                             |
+| 可見性          | `Public`，任何人都能瀏覽、Clone 與 Fork                                                                                  |
 | 程式碼授權      | MIT License；Copyright (c) 2026 PingLex Digital Technology Co., Ltd. (評律數位科技股份有限公司) and PiSuODS contributors |
-| 社群入口        | Issues、Discussions、Pull Requests 與三種結構化 Issue Forms                |
-| GitHub Pages    | 改用 `https://kuohuafan.github.io/pisuai-open-data/`，來源仍為 `main/docs` |
-| 完整平臺        | `https://opendataset.manus.space/`，不因 repository 公開而改變             |
-| 品牌名稱        | `PiSuAI\|紫鳥貔貅`                                                         |
-| 品牌 Logo       | 使用者提供的紫鳥圓形 Logo；提供 WebP 與 favicon PNG                        |
+| 社群入口        | Issues、Discussions、Pull Requests 與三種結構化 Issue Forms                                                              |
+| GitHub Pages    | 改用 `https://kuohuafan.github.io/pisuai-open-data/`，來源仍為 `main/docs`                                               |
+| 完整平臺        | `https://opendataset.manus.space/`，不因 repository 公開而改變                                                           |
+| 品牌名稱        | `PiSuAI\|紫鳥貔貅`                                                                                                       |
+| 品牌 Logo       | 使用者提供的紫鳥圓形 Logo；提供 WebP 與 favicon PNG                                                                      |
 
 ## 將公開的內容
 
@@ -19,7 +19,7 @@
 
 ## 不會公開的內容
 
-Repository 不包含正式資料庫內容、全國政府資料 CSV 快照、`.env`、OAuth 憑證、JWT secret、模型金鑰或部署平台 secret。本機忽略的執行期網路日誌不會進入 Git，並已從工作目錄清除。
+Repository 不包含正式資料庫內容；全國政府資料 CSV 快照不進入 Git 歷史，另以日期快照 Release 資產發布。`.env`、OAuth 憑證、JWT secret、模型金鑰或部署平台 secret 均不會公開。本機忽略的執行期網路日誌不會進入 Git，並已從工作目錄清除。
 
 ## 權利邊界
 
@@ -27,7 +27,7 @@ MIT License 只涵蓋本專案自行提供的程式碼與技術文件，不會�
 
 ## 驗證結果
 
-Gitleaks 8.30.1 已掃描即將提交的公開檔案與完整 Git diff 歷史，結果均為 0 個 secrets。Git 歷史最大 blob 約 323 KB，沒有資料庫 dump 或大型資料檔。9 個測試檔共 28 項測試全部通過，TypeScript 檢查與 production build 亦通過。Issue Form YAML、JSON、Markdown 本地連結與必要文件均已驗證。
+Gitleaks 8.30.1 已掃描即將提交的公開檔案與完整 Git diff 歷史，結果均為 0 個 secrets。Git 歷史最大 blob 約 323 KB，沒有資料庫 dump 或大型資料檔。12 個測試檔共 38 項測試全部通過，TypeScript 檢查與 production build 亦通過。Issue Form YAML、JSON、Markdown 本地連結與必要文件均已驗證。
 
 報導草稿自動化已改用 `generate-report-draft` key 與 `/api/scheduled/generate-report-draft` 路徑。`0004_rename_report_automation_key.sql` 會保留既有 task UID 與執行紀錄，並提供一個大版本的舊 key 相容期；正式部署必須同時套用 migration 並更新 Manus 排程路徑。
 

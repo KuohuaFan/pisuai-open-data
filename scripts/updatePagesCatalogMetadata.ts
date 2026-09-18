@@ -9,9 +9,9 @@ export function updatePagesCatalogMetadata(
   const total = manifest.totalDatasets.toLocaleString("en-US");
   const agencies = manifest.agencyCount.toLocaleString("en-US");
   const rules: Array<[RegExp, string, number]> = [
-    [/(<strong data-catalog-total>)[^<]+(<\/strong>)/g, `$1${total}$2`, 2],
+    [/(<strong data-catalog-total>)[^<]+(<\/strong\s*>)/g, `$1${total}$2`, 2],
     [
-      /(<strong data-catalog-agencies>)[^<]+(<\/strong>)/g,
+      /(<strong data-catalog-agencies>)[^<]+(<\/strong\s*>)/g,
       `$1${agencies}$2`,
       1,
     ],

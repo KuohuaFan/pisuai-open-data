@@ -16,6 +16,6 @@
   "asset": "gov-catalog-snapshot-2026-09-15.csv.gz",
   "releaseTag": "catalog-2026-09-15",
   "releaseUrl": "https://github.com/KuohuaFan/pisuai-open-data/releases/tag/catalog-2026-09-15",
-  "sampleFile": "catalog-sample.json",
+  "sampleFile": "sample/gov-catalog-sample-100.csv",
   "sampleRowCount": 100
 }
