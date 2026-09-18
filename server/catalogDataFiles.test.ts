@@ -97,6 +97,8 @@ describe("catalog sample and manifest", () => {
     expect(manifest.sha256).toMatch(/^[a-f0-9]{64}$/);
     expect(notice).toContain("不適用 repository 根目錄的 MIT License");
     expect(notice).toContain("評律數位科技股份有限公司");
-    expect(notice).toContain("數位發展部 2026");
+    expect(notice).toContain(
+      "資料來源：政府資料開放平臺（data.gov.tw），依政府資料開放授權條款第 1 版利用；快照日期 2026-09-15"
+    );
   });
 });

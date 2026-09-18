@@ -23,7 +23,7 @@ const manifest: CatalogReleaseManifest = {
     url: "https://data.gov.tw/license",
   },
   attribution:
-    "資料來源：數位發展部 2026「政府資料開放平臺資料集清單」（data.gov.tw，2026-09-15 快照），依政府資料開放授權條款第 1 版利用；本索引為 metadata 再整理，非原始資料，亦非經人工查核之來源卡。",
+    "資料來源：政府資料開放平臺（data.gov.tw），依政府資料開放授權條款第 1 版利用；快照日期 2026-09-15；本索引為 metadata 再整理，非原始資料，亦非經人工查核之來源卡。",
   publisher: "評律數位科技股份有限公司",
   publisherDisplay:
     "評律數位科技股份有限公司（PingLex Digital Technology Co., Ltd.）",

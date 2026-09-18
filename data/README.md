@@ -2,7 +2,7 @@
 
 本目錄只保存 **100 筆最小 metadata 樣本**、快照 manifest 與授權／顯名 NOTICE，供測試欄位映射、索引生成及文件範例使用。`sample/gov-catalog-sample-100.csv` **不是完整快照，也不是正式資料庫備份**。
 
-> 資料來源：數位發展部 2026「政府資料開放平臺資料集清單」（data.gov.tw，2026-09-15 快照），依政府資料開放授權條款第 1 版利用；本索引為 metadata 再整理，非原始資料，亦非經人工查核之來源卡。
+> 資料來源：政府資料開放平臺（data.gov.tw），依政府資料開放授權條款第 1 版利用；快照日期 2026-09-15；本索引為 metadata 再整理，非原始資料，亦非經人工查核之來源卡。
 
 完整 CSV 壓縮快照不進入 Git 歷史。請從 [`catalog-2026-09-15` GitHub Release](https://github.com/KuohuaFan/pisuai-open-data/releases/tag/catalog-2026-09-15) 下載 `gov-catalog-snapshot-2026-09-15.csv.gz`、`.sha256` 與 `manifest.json`，先驗證 checksum，再執行：
 
