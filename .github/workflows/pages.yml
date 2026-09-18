@@ -76,7 +76,7 @@ jobs:
 
       - name: Download and verify release assets
         env:
-          GH_TOEN: ${{ github.token }}
+          GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
           mkdir -p /tmp/pisuods-release /tmp/pisuods-work
@@ -88,7 +88,7 @@ jobs:
             --pattern 'manifest.json'
           archive="$(find /tmp/pisuods-release -maxdepth 1 -name 'gov-catalog-snapshot-*.csv.gz' -print -quit)"
           checksum="$(find /tmp/pisuods-release -maxdepth 1 -name 'gov-catalog-snapshot-*.sha256' -print -quit)"
-          pnmm exec tsx scripts/verifyCatalogReleaseAssets.ts \
+          pnpm exec tsx scripts/verifyCatalogReleaseAssets.ts \
             "$archive" "$checksum" /tmp/pisuods-release/manifest.json
           gzip -dc "$archive" > /tmp/pisuods-work/catalog.csv
 
@@ -96,7 +96,7 @@ jobs:
         run: |
           rm -rf _site
           cp -R docs _site
-          pnmm exec tsx scripts/buildCatalogIndex.ts \
+          pnpm exec tsx scripts/buildCatalogIndex.ts \
             /tmp/pisuods-work/catalog.csv \
             _site/catalog \
             /tmp/pisuods-release/manifest.json \
