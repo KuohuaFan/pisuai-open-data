@@ -12,11 +12,8 @@
   "attribution": "資料來源：政府資料開放平臺（data.gov.tw），依政府資料開放授權條款第 1 版利用；快照日期 2026-09-15；本索引為 metadata 再整理，非原始資料，亦非經人工查核之來源卡。",
   "publisher": "評律數位科技股份有限公司",
   "publisherDisplay": "評律數位科技股份有限公司（PingLex Digital Technology Co., Ltd.）",
-  "strippedFields": [
-    "提供機關聯絡人姓名",
-    "提供機關聯絡人電話"
-  ],
-  "generatorCommit": "334b534e2957d638d6b1d4a9c3b3c959178254f8",
+  "strippedFields": ["提供機關聯絡人姓名", "提供機關聯絡人電話"],
+  "generatorCommit": "30857defa0d01ffff83d0258f9f8cabc0e61c3e3",
   "asset": "gov-catalog-snapshot-2026-09-15.csv.gz",
   "releaseTag": "catalog-2026-09-15",
   "releaseUrl": "https://github.com/KuohuaFan/pisuai-open-data/releases/tag/catalog-2026-09-15",
