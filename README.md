@@ -14,7 +14,7 @@
 ![Tests](https://img.shields.io/badge/tests-19%20passed-1f9d7a)
 ![Government datasets](https://img.shields.io/badge/government%20datasets-53%2C169-b08b35)
 
-**PiSuAI|紫鳥貔貅**是一個以來源追溯、權利分級與人工發布閘門為核心的臺灣開放資料平台。專案以 MIT License 開放原始碼，歡迎 Fork、部署、提出 Issue、送出 Pull Request，或協助查核新的資料來源。系統將政府資料開放平臺的全國資料目錄轉化為可搜尋索引，同時維護一層經人工判讀的官方與民間來源庫。平台也能依已核准來源產生具引用的深度報導草稿，但不允許 AI 跳過人工審核直接發布。
+《PiSuAI|紫鳥貔貅 開放資料平台》，簡稱《PiSuAIODS》是一個以來源追溯、權利分級與人工發布閘門為核心的臺灣開放資料平台。專案以 MIT License 開放原始碼，歡迎 Fork、部署、提出 Issue、送出 Pull Request，或協助查核新的資料來源。系統將政府資料開放平臺的全國資料目錄轉化為可搜尋索引，同時維護一層經人工判讀的官方與民間來源庫。平台也能依已核准來源產生具引用的深度報導草稿，但不允許 AI 跳過人工審核直接發布。
 
 完整全端網站：[https://opendataset.manus.space/](https://opendataset.manus.space/)
 
