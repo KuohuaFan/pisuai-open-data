@@ -10,7 +10,7 @@
 | 社群入口        | Issues、Discussions、Pull Requests 與三種結構化 Issue Forms                |
 | GitHub Pages    | 改用 `https://kuohuafan.github.io/pisuai-open-data/`，來源仍為 `main/docs` |
 | 完整平臺        | `https://opendataset.manus.space/`，不因 repository 公開而改變             |
-| 品牌名稱        | `PiSuAI|紫鳥貔貅`                                                          |
+| 品牌名稱        | `PiSuAI\|紫鳥貔貅`                                                         |
 | 品牌 Logo       | 使用者提供的紫鳥圓形 Logo；提供 WebP 與 favicon PNG                        |
 
 ## 將公開的內容
