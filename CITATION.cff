@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "If you use PiSuODS, please cite it using the metadata in this file."
+title: "PiSuODS: PiSuAI Open Data System"
+authors:
+  - name: PiSuAI
+repository-code: "https://github.com/KuohuaFan/pisuai-open-data"
+license: MIT
+version: 0.1.0
+date-released: 2026-09-18

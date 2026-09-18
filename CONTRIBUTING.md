@@ -66,6 +66,10 @@ docs: clarify upstream data licensing
 
 提交貢獻即表示您有權提供該內容，並同意依本 repository 的 MIT License 授權該貢獻。維護者可以要求拆分大型變更、補充測試，或因安全、權利與維護成本拒絕合併。
 
+### Developer Certificate of Origin
+
+所有 commit 均須使用 `git commit -s` 加入 `Signed-off-by` 簽署。這項簽署表示貢獻者確認自己有權提供該內容，並同意依本 repository 的 MIT License 授權其程式碼與技術文件。完整條款見 [Developer Certificate of Origin 1.1][3]；未簽署的 Pull Request 將無法通過 CI。
+
 ## 審查原則
 
 維護者會優先考量正確性、可重現性、來源可追溯性、權利邊界、向下相容性與維護成本。涉及裁判、醫療、政治獻金、公司關係、不動產或行政裁罰的變更，會採取較保守的公開策略。
@@ -74,3 +78,4 @@ docs: clarify upstream data licensing
 
 [1]: https://opensource.org/license/mit "MIT License"
 [2]: https://www.contributor-covenant.org/version/2/1/code_of_conduct/ "Contributor Covenant Code of Conduct 2.1"
+[3]: https://developercertificate.org/ "Developer Certificate of Origin 1.1"

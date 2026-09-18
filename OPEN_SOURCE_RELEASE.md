@@ -3,14 +3,14 @@
 ## 已完成的公開設定
 
 | 項目            | 設定                                                                       |
-| --------------- | -------------------------------------------------------------------------- | --------- |
+| --------------- | -------------------------------------------------------------------------- |
 | Repository 名稱 | `KuohuaFan/pisuai-open-data`                                               |
 | 可見性          | `Public`，任何人都能瀏覽、Clone 與 Fork                                    |
 | 程式碼授權      | MIT License；Copyright (c) 2026 KuohuaFan and PiSuAI contributors          |
 | 社群入口        | Issues、Discussions、Pull Requests 與三種結構化 Issue Forms                |
 | GitHub Pages    | 改用 `https://kuohuafan.github.io/pisuai-open-data/`，來源仍為 `main/docs` |
 | 完整平臺        | `https://opendataset.manus.space/`，不因 repository 公開而改變             |
-| 品牌名稱        | `PiSuAI                                                                    | 紫鳥貔貅` |
+| 品牌名稱        | `PiSuAI|紫鳥貔貅`                                                          |
 | 品牌 Logo       | 使用者提供的紫鳥圓形 Logo；提供 WebP 與 favicon PNG                        |
 
 ## 將公開的內容
@@ -23,11 +23,13 @@ Repository 不包含正式資料庫內容、全國政府資料 CSV 快照、`.en
 
 ## 權利邊界
 
-MIT License 只涵蓋本專案自行提供的程式碼與技術文件，不會把政府資料、民間資料、第三方附件或 API 回應重新授權。`PiSuAI`、`PiSuAI|紫鳥貔貅` 與品牌識別不因程式碼開源而授權第三人表示官方關係或背書。Fork 可以說明其源自 PiSuAI，但應清楚標示修改者與非官方性質。
+MIT License 只涵蓋本專案自行提供的程式碼與技術文件，不會把政府資料、民間資料、第三方附件或 API 回應重新授權。`PiSuAI`、`PiSuAI|紫鳥貔貅`、`PiSuODS` 與品牌識別不因程式碼開源而授權第三人表示官方關係或背書。Fork 可以說明其源自 PiSuAI，但應清楚標示修改者與非官方性質。
 
 ## 驗證結果
 
-Gitleaks 8.30.1 已掃描即將提交的公開檔案與完整 Git diff 歷史，結果均為 0 個 secrets。Git 歷史最大 blob 約 323 KB，沒有資料庫 dump 或大型資料檔。7 個測試檔共 19 項測試全部通過，TypeScript 檢查與 production build 亦通過。Issue Form YAML、JSON、Markdown 本地連結與必要文件均已驗證。
+Gitleaks 8.30.1 已掃描即將提交的公開檔案與完整 Git diff 歷史，結果均為 0 個 secrets。Git 歷史最大 blob 約 323 KB，沒有資料庫 dump 或大型資料檔。8 個測試檔共 23 項測試全部通過，TypeScript 檢查與 production build 亦通過。Issue Form YAML、JSON、Markdown 本地連結與必要文件均已驗證。
+
+報導草稿自動化已改用 `generate-report-draft` key 與 `/api/scheduled/generate-report-draft` 路徑。`0004_rename_report_automation_key.sql` 會保留既有 task UID 與執行紀錄，並提供一個大版本的舊 key 相容期；正式部署必須同時套用 migration 並更新 Manus 排程路徑。
 
 Repository 公開後已啟用 GitHub secret scanning、push protection、Dependabot security updates 與私密漏洞通報。直接依賴及必要的傳遞依賴已升級至相同大版本的修補版本；`pnpm audit --prod` 的 critical 與 high 均降為 0。其餘 25 個 moderate 與 5 個 low 公告保留由 Dependabot 追蹤，避免為消除低風險報告而進行未經驗證的大版本升級。
 
