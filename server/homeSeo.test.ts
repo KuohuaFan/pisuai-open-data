@@ -29,8 +29,22 @@ function getStaticMetaContent(name: string) {
   return tag?.match(/content=["']([^"']*)["']/i)?.[1];
 }
 
+function getStaticMetaProperty(property: string) {
+  const tags = indexHtml.match(/<meta\b[^>]*>/gi) ?? [];
+  const tag = tags.find(candidate =>
+    new RegExp(`property=["']${property}["']`, "i").test(candidate)
+  );
+  return tag?.match(/content=["']([^"']*)["']/i)?.[1];
+}
+
 describe("homepage SEO constraints", () => {
   it("keeps the title and description inside their strict character limits", () => {
+    expect(HOME_TITLE).toBe(
+      "PiSuODS｜PiSuAI 紫鳥貔貅・臺灣開放資料與深度報導平台"
+    );
+    expect(HOME_DESCRIPTION).toBe(
+      "PiSuAI 產品線中的臺灣開放資料平台，以來源追溯、再利用治理分類與人工發布閘門為核心；程式碼 MIT 開源。"
+    );
     expect(unicodeLength(HOME_TITLE)).toBeGreaterThanOrEqual(30);
     expect(unicodeLength(HOME_TITLE)).toBeLessThanOrEqual(60);
     expect(unicodeLength(HOME_DESCRIPTION)).toBeGreaterThanOrEqual(50);
@@ -47,5 +61,9 @@ describe("homepage SEO constraints", () => {
     expect(getStaticTitle()).toBe(HOME_TITLE);
     expect(getStaticMetaContent("description")).toBe(HOME_DESCRIPTION);
     expect(getStaticMetaContent("keywords")).toBe(HOME_KEYWORDS_CONTENT);
+    expect(getStaticMetaProperty("og:title")).toBe(HOME_TITLE);
+    expect(getStaticMetaProperty("og:description")).toBe(HOME_DESCRIPTION);
+    expect(getStaticMetaContent("twitter:title")).toBe(HOME_TITLE);
+    expect(getStaticMetaContent("twitter:description")).toBe(HOME_DESCRIPTION);
   });
 });

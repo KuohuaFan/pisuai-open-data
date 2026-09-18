@@ -18,6 +18,16 @@ function setMetaContent(name: string, content: string) {
   element.content = content;
 }
 
+function setMetaProperty(property: string, content: string) {
+  let element = document.querySelector<HTMLMetaElement>(`meta[property="${property}"]`);
+  if (!element) {
+    element = document.createElement("meta");
+    element.setAttribute("property", property);
+    document.head.appendChild(element);
+  }
+  element.content = content;
+}
+
 export default function Home() {
   const sources = trpc.sources.list.useQuery({ limit: 6 });
   const reports = trpc.reports.list.useQuery({ limit: 3 });
@@ -29,6 +39,10 @@ export default function Home() {
     document.title = HOME_TITLE;
     setMetaContent("description", HOME_DESCRIPTION);
     setMetaContent("keywords", HOME_KEYWORDS_CONTENT);
+    setMetaProperty("og:title", HOME_TITLE);
+    setMetaProperty("og:description", HOME_DESCRIPTION);
+    setMetaContent("twitter:title", HOME_TITLE);
+    setMetaContent("twitter:description", HOME_DESCRIPTION);
   }, []);
 
   return (
@@ -66,7 +80,7 @@ export default function Home() {
                 </div>
                 <div className="network-orbit my-9 grid place-items-center">
                   <div className="grid size-40 place-items-center border border-gold/50 bg-gold/10 text-center">
-                    <div><span className="block font-serif text-5xl text-gold">{sourceTotal || 12}</span><span className="text-xs tracking-widest text-white/50">VERIFIED SOURCES</span></div>
+                    <div><span className="block font-serif text-5xl text-gold">{facets.isLoading ? "—" : sourceTotal.toLocaleString()}</span><span className="text-xs tracking-widest text-white/50">VERIFIED SOURCES</span></div>
                   </div>
                 </div>
                 <div className="space-y-3">

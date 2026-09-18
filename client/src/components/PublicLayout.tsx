@@ -158,8 +158,16 @@ export default function PublicLayout({
             </p>
           </div>
         </div>
-        <div className="border-t border-white/10 py-5 text-center text-xs tracking-wide text-white/45">
-          © 2026 PiSuAI|紫鳥貔貅 · 公開資料治理實驗
+        <div className="space-y-2 border-t border-white/10 py-5 text-center text-xs tracking-wide text-white/45">
+          <p>© 2026 PiSuAI|紫鳥貔貅 · 公開資料治理實驗</p>
+          <a
+            href="https://github.com/KuohuaFan/pisuai-open-data"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-block text-white/68 underline decoration-white/25 underline-offset-4 transition-colors hover:text-white"
+          >
+            PiSuODS・開源程式碼
+          </a>
         </div>
       </footer>
     </div>
