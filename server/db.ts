@@ -14,9 +14,14 @@ import {
   sources,
   users,
 } from "../drizzle/schema";
+import {
+  LEGACY_REPORT_AUTOMATION_KEY,
+  REPORT_AUTOMATION_KEY,
+} from "../shared/const";
 import { ENV } from "./_core/env";
 
 let _db: ReturnType<typeof drizzle> | null = null;
+let legacyReportAutomationWarningLogged = false;
 
 export async function getDb() {
   if (!_db && process.env.DATABASE_URL) {
@@ -482,14 +487,47 @@ export async function getAutomationByTaskUid(taskUid: string) {
   return config ?? null;
 }
 
-export async function getAutomationConfig(key = "biennial-report") {
+type AutomationConfig = typeof automationConfigs.$inferSelect;
+
+export function isReportAutomationConfigKey(key: string) {
+  return key === REPORT_AUTOMATION_KEY || key === LEGACY_REPORT_AUTOMATION_KEY;
+}
+
+export function warnIfLegacyReportAutomationKey(
+  key: string,
+  warn: (message: string) => void = console.warn,
+) {
+  if (key !== LEGACY_REPORT_AUTOMATION_KEY || legacyReportAutomationWarningLogged) return;
+  legacyReportAutomationWarningLogged = true;
+  warn(
+    `[Automation] Deprecated key "${LEGACY_REPORT_AUTOMATION_KEY}" is in use; migrate to "${REPORT_AUTOMATION_KEY}" before the next major release.`,
+  );
+}
+
+export async function resolveReportAutomationConfig(
+  findByKey: (key: string) => Promise<AutomationConfig | null>,
+) {
+  const current = await findByKey(REPORT_AUTOMATION_KEY);
+  if (current) return current;
+
+  const legacy = await findByKey(LEGACY_REPORT_AUTOMATION_KEY);
+  if (legacy) warnIfLegacyReportAutomationKey(legacy.key);
+  return legacy;
+}
+
+export async function getAutomationConfig(key = REPORT_AUTOMATION_KEY) {
   const db = requireDb(await getDb());
-  const [config] = await db
-    .select()
-    .from(automationConfigs)
-    .where(eq(automationConfigs.key, key))
-    .limit(1);
-  return config ?? null;
+  const findByKey = async (candidateKey: string) => {
+    const [config] = await db
+      .select()
+      .from(automationConfigs)
+      .where(eq(automationConfigs.key, candidateKey))
+      .limit(1);
+    return config ?? null;
+  };
+
+  if (key === REPORT_AUTOMATION_KEY) return resolveReportAutomationConfig(findByKey);
+  return findByKey(key);
 }
 
 export async function updateAutomationResult(id: number, result: string) {

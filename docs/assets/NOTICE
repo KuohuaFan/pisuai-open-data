@@ -1,0 +1,48 @@
+PiSuAI 品牌資產使用聲明 / PiSuAI Brand Assets Notice
+=====================================================
+
+本目錄（docs/assets/）及其子目錄中的所有檔案，包括但不限於
+pisuai-purple-bird-logo.webp、favicon 圖檔及其任何衍生版本，
+為 PiSuAI 之品牌資產。
+
+這些檔案「不適用」本 repository 根目錄 LICENSE 所載之 MIT License。
+MIT License 授權的是本專案的程式碼與技術文件；品牌資產另依以下條件：
+
+1. 保留使用：您可以在未修改的本專案副本或 Fork 中保留這些檔案，
+   僅為了讓程式在本機或測試環境正常顯示。
+2. 公開部署：公開部署 Fork 或衍生作品時，應移除或替換這些檔案，
+   並改用自己的名稱與視覺識別，不得使人誤認為 PiSuAI 官方服務、
+   獲得背書或存在合作關係。
+3. 說明性使用：在文件、文章或簡報中為指明本專案而使用標誌，
+   屬合理的說明性使用，但不得暗示官方關係。
+4. 其他任何使用，包括修改、組合進其他標識或商業用途，須另行取得
+   PiSuAI 經營主體之書面同意。
+
+完整權利邊界見本 repository 的 TRADEMARKS_AND_DATA.md。
+
+-----------------------------------------------------
+
+All files in this directory (docs/assets/) and its subdirectories,
+including pisuai-purple-bird-logo.webp, favicon images and any
+derivatives, are brand assets of PiSuAI.
+
+These files are NOT licensed under the MIT License found in the
+repository root LICENSE file. The MIT License covers the project's
+source code and technical documentation only. Brand assets may be:
+
+1. Retained in an unmodified copy or fork of this project solely so
+   that the application renders correctly in local or test
+   environments.
+2. Removed or replaced before any public deployment of a fork or
+   derivative work; forks must use their own name and visual identity
+   and must not suggest that they are official PiSuAI services,
+   endorsed by, or affiliated with PiSuAI.
+3. Used nominatively in documentation, articles or presentations to
+   refer to this project, without implying official affiliation.
+
+Any other use, including modification, combination with other marks,
+or commercial use, requires prior written permission from the
+operating entity of PiSuAI.
+
+See TRADEMARKS_AND_DATA.md in the repository root for the full
+statement of rights boundaries.

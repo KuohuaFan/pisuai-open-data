@@ -1,12 +1,17 @@
 import type { Request, Response } from "express";
-import { getAutomationByTaskUid, updateAutomationResult } from "./db";
+import {
+  getAutomationByTaskUid,
+  isReportAutomationConfigKey,
+  updateAutomationResult,
+  warnIfLegacyReportAutomationKey,
+} from "./db";
 import { generateEvidenceBoundDraft } from "./reportGenerator";
 import { previousTaipeiDate, syncGovernmentCatalogDelta } from "./governmentCatalog";
 import { sdk } from "./_core/sdk";
 
 const SIX_HOURS_MS = 6 * 60 * 60 * 1000;
 
-export async function generateBiennialReportHandler(req: Request, res: Response) {
+export async function generateReportDraftHandler(req: Request, res: Response) {
   let taskUid: string | undefined;
   try {
     const user = await sdk.authenticateRequest(req);
@@ -17,6 +22,10 @@ export async function generateBiennialReportHandler(req: Request, res: Response)
 
     const config = await getAutomationByTaskUid(taskUid);
     if (!config) return res.json({ ok: true, skipped: "orphan" });
+    if (!isReportAutomationConfigKey(config.key)) {
+      return res.status(403).json({ error: "wrong-task" });
+    }
+    warnIfLegacyReportAutomationKey(config.key);
     if (!config.enabled) return res.json({ ok: true, skipped: "disabled" });
     if (config.lastRunAt && Date.now() - config.lastRunAt < SIX_HOURS_MS) {
       return res.json({ ok: true, skipped: "idempotent-window" });
