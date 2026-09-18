@@ -43,16 +43,16 @@ GitHub Pages 專案介紹：[https://kuohuafan.github.io/pisuai-open-data/](http
 
 ## 目前規模
 
-以下數字來自 2026 年 9 月 15 日的官方全量快照與專案驗證紀錄。政府資料集會隨上游目錄持續變動，且本 repository **不附帶**這些資料，須依[建立政府資料全集](#建立政府資料全集)自行匯入。（來源 1）
+以下數字來自 2026 年 9 月 15 日的官方全量快照與專案驗證紀錄。政府資料集會隨上游目錄持續變動；完整 CSV 不進入 Git 歷史，可由官方 API、GitHub Release 或 GitHub Pages 衍生索引取得。（來源 1）
 
-| 項目                | 已驗證項目說明                     |       結果 |
-| ------------------- | ---------------------------------- | ---------: |
-| 政府資料集 metadata | 匯入筆數                           |  53,169 筆 |
-| 唯一 datasetId      | ID 唯一性                          |  53,169 個 |
-| 提供機關標籤        | 欄位正規化後的不重複值             |     800 個 |
-| 政府服務分類        | 欄位正規化後的不重複值             |      18 類 |
-| 人工治理來源卡      | seed 內建筆數                      |      39 筆 |
-| 治理來源類別        | seed 內建類別數                    |      20 類 |
+| 項目                | 已驗證項目說明         |      結果 |
+| ------------------- | ---------------------- | --------: |
+| 政府資料集 metadata | 匯入筆數               | 53,169 筆 |
+| 唯一 datasetId      | ID 唯一性              | 53,169 個 |
+| 提供機關標籤        | 欄位正規化後的不重複值 |    800 個 |
+| 政府服務分類        | 欄位正規化後的不重複值 |     18 類 |
+| 人工治理來源卡      | seed 內建筆數          |     39 筆 |
+| 治理來源類別        | seed 內建類別數        |     20 類 |
 
 「已驗證」指匯入筆數、ID 唯一性與欄位完整性通過專案測試，**不代表逐筆確認原始資料內容正確**。詳細驗證過程見 [`government-catalog-qa.md`](./government-catalog-qa.md)，已查核的政府資料入口與同步限制見 [`government-data-source-map.md`](./government-data-source-map.md)，開源發布時的稽核紀錄見 [`OPEN_SOURCE_RELEASE.md`](./OPEN_SOURCE_RELEASE.md)。
 
@@ -69,16 +69,16 @@ PiSuODS 不把「出現在政府目錄」與「已完成法律及資料治理審
 
 ## 主要功能
 
-| 模組             | 功能                                                                                       |
-| ---------------- | ------------------------------------------------------------------------------------------ |
-| 政府資料全集     | 多關鍵字搜尋、服務分類篩選、分頁瀏覽、資料集詳情與官方資源導流                             |
-| 來源治理         | Canonical URL、GitHub repository、commit SHA、資料授權、程式碼授權及風險說明               |
+| 模組               | 功能                                                                                                         |
+| ------------------ | ------------------------------------------------------------------------------------------------------------ |
+| 政府資料全集       | 多關鍵字搜尋、服務分類篩選、分頁瀏覽、資料集詳情與官方資源導流                                               |
+| 來源治理           | Canonical URL、GitHub repository、commit SHA、資料授權、程式碼授權及風險說明                                 |
 | 五類再利用治理分類 | A 可公開再利用、B 僅索引與導流、C 限內部使用、D 另取授權、MIXED 逐欄審查；為平台內部判讀標籤，不取代原始授權 |
-| 每日同步         | 全量 CSV 串流匯入、前一日 JSON 異動同步、datasetId 去重、雜湊與下架保留                    |
-| 深度報導         | 依已核准來源產生具引用草稿；證據不足時採安全降級，不自動發布                               |
-| 會員功能         | OAuth 登入（官方部署使用 Manus OAuth）、來源收藏及報導收藏                                 |
-| 治理後台         | 來源狀態、治理分類、公開範圍、報導核准、管線紀錄與同步操作                                 |
-| 稽核能力         | 記錄資料同步結果、來源變更與管理者操作                                                     |
+| 每日同步           | 全量 CSV 串流匯入、前一日 JSON 異動同步、datasetId 去重、雜湊與下架保留                                      |
+| 深度報導           | 依已核准來源產生具引用草稿；證據不足時採安全降級，不自動發布                                                 |
+| 會員功能           | OAuth 登入（官方部署使用 Manus OAuth）、來源收藏及報導收藏                                                   |
+| 治理後台           | 來源狀態、治理分類、公開範圍、報導核准、管線紀錄與同步操作                                                   |
+| 稽核能力           | 記錄資料同步結果、來源變更與管理者操作                                                                       |
 
 ## 系統架構
 
@@ -149,21 +149,29 @@ pnpm dev
 
 ## 環境變數
 
-| 變數                     | 用途                       | 必要性       |
-| ------------------------ | -------------------------- | ------------ |
-| `DATABASE_URL`           | MySQL／TiDB 連線字串       | 必要         |
-| `JWT_SECRET`             | Session cookie 簽章        | 必要         |
-| `VITE_APP_ID`            | OAuth 應用程式 ID          | 登入功能必要 |
-| `OAUTH_SERVER_URL`       | OAuth 伺服器網址           | 登入功能必要 |
-| `VITE_OAUTH_PORTAL_URL`  | 前端登入入口               | 登入功能必要 |
-| `OWNER_OPEN_ID`          | 初始管理者 Open ID         | 後台必要     |
-| `OWNER_NAME`             | 站台擁有者顯示名稱         | 建議         |
-| `BUILT_IN_FORGE_API_URL` | LLM 服務入口               | AI 功能必要  |
-| `BUILT_IN_FORGE_API_KEY` | LLM 服務伺服器端金鑰       | AI 功能必要  |
+| 變數                     | 用途                 | 必要性       |
+| ------------------------ | -------------------- | ------------ |
+| `DATABASE_URL`           | MySQL／TiDB 連線字串 | 必要         |
+| `JWT_SECRET`             | Session cookie 簽章  | 必要         |
+| `VITE_APP_ID`            | OAuth 應用程式 ID    | 登入功能必要 |
+| `OAUTH_SERVER_URL`       | OAuth 伺服器網址     | 登入功能必要 |
+| `VITE_OAUTH_PORTAL_URL`  | 前端登入入口         | 登入功能必要 |
+| `OWNER_OPEN_ID`          | 初始管理者 Open ID   | 後台必要     |
+| `OWNER_NAME`             | 站台擁有者顯示名稱   | 建議         |
+| `BUILT_IN_FORGE_API_URL` | LLM 服務入口         | AI 功能必要  |
+| `BUILT_IN_FORGE_API_KEY` | LLM 服務伺服器端金鑰 | AI 功能必要  |
 
 本機 `.env` 已由 `.gitignore` 排除；`env.example` 只含變數名稱與說明，`pnpm setup:env` 會將其複製為 `.env`。正式機密應由部署平台的 secret manager 管理。
 
 ## 建立政府資料全集
+
+### 三種取得方式
+
+| 方式                    | 用途                                         | 入口                                                                                                  |
+| ----------------------- | -------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| 官方全量匯出 API        | 取得 data.gov.tw 最新 CSV                    | `https://data.gov.tw/api/v2/rest/dataset/export`                                                      |
+| GitHub Release snapshot | 取得具日期、SHA-256 與 manifest 的可重現快照 | [`catalog-2026-09-15`](https://github.com/KuohuaFan/pisuai-open-data/releases/tag/catalog-2026-09-15) |
+| GitHub Pages 分層索引   | 依服務分類、機關及資料集瀏覽 metadata        | [`/catalog/`](https://kuohuafan.github.io/pisuai-open-data/catalog/)                                  |
 
 ### 全量匯入
 
@@ -176,6 +184,15 @@ curl -L 'https://data.gov.tw/api/v2/rest/dataset/export' \
 pnpm exec tsx scripts/syncGovernmentCatalog.ts \
   full /tmp/data-gov-tw.csv
 ```
+
+也可以直接下載 Release 的三個資產、驗證 SHA-256、解壓並匯入：
+
+```bash
+pnpm exec tsx scripts/syncGovernmentCatalog.ts \
+  full --from-release catalog-2026-09-15
+```
+
+Release `manifest.json` 的 `snapshotDate` 與壓縮資產 `sha256` 會寫入 `government_catalog_syncs` 的 `reportDate` 與 `snapshotSha256`。若 manifest 的 `rowCount` 與實際匯入筆數不一致，CLI 會輸出警告供稽核。
 
 ### 每日異動
 
@@ -192,10 +209,10 @@ pnpm exec tsx scripts/syncGovernmentCatalog.ts \
 
 系統提供兩個受保護的排程端點：
 
-| 端點                                          | 預定用途                         | 安全控制                                      |
-| --------------------------------------------- | -------------------------------- | --------------------------------------------- |
-| `POST /api/scheduled/sync-government-catalog` | 每日同步前一日政府資料異動       | Cron 身分、task UID、啟用狀態及六小時冪等窗口 |
-| `POST /api/scheduled/generate-report-draft`   | 依排程週期建立一則深度報導草稿   | 只建立待審草稿，不可直接公開                  |
+| 端點                                          | 預定用途                       | 安全控制                                      |
+| --------------------------------------------- | ------------------------------ | --------------------------------------------- |
+| `POST /api/scheduled/sync-government-catalog` | 每日同步前一日政府資料異動     | Cron 身分、task UID、啟用狀態及六小時冪等窗口 |
+| `POST /api/scheduled/generate-report-draft`   | 依排程週期建立一則深度報導草稿 | 只建立待審草稿，不可直接公開                  |
 
 這些端點不是公開 webhook。正式啟用時，必須由部署平台的受驗證排程服務呼叫，並把 task UID 寫入 `automation_configs`；正式部署目前未啟用這兩項排程；seed 預設 cron 為每兩日 01:00（臺北時間），啟用與否由 `automation_configs` 的 `enabled` 與部署平台排程決定。目錄同步可以 `scripts/syncGovernmentCatalog.ts` 手動執行。管理者亦可在治理後台使用「產生一則待審草稿」手動建立報導草稿。
 
@@ -215,7 +232,7 @@ pnpm check
 pnpm build
 ```
 
-目前測試涵蓋品牌與 Logo 設定、OAuth 登出、首頁 SEO 限制、擴充來源唯一性、政府專業來源治理、資料欄位正規化、下架狀態、臺北時區日期計算及報導安全降級。最近一次通過紀錄與對應 commit 見 [`government-catalog-qa.md`](./government-catalog-qa.md)；即時狀態以上方 CI 徽章為準。
+目前測試涵蓋品牌與 Logo 設定、OAuth 登出、首頁 SEO 限制、擴充來源唯一性、政府專業來源治理、資料欄位正規化、Release checksum、快照 provenance、分層索引唯一性、400 KB 分頁上限、下架狀態、臺北時區日期計算及報導安全降級。最近一次通過紀錄與對應 commit 見 [`government-catalog-qa.md`](./government-catalog-qa.md)；即時狀態以上方 CI 徽章為準。
 
 ## 專案結構
 
@@ -235,16 +252,21 @@ drizzle/
   0000...0003.sql          已審查 migration
 scripts/
   seed.ts                  治理來源與自動化設定
-  syncGovernmentCatalog.ts 政府目錄同步 CLI
+  syncGovernmentCatalog.ts 官方 CSV、Release 快照與每日異動同步 CLI
+  catalogSnapshot.ts       快照驗證、gzip、checksum 與 manifest
+  catalogRelease.ts        GitHub Release 下載及 checksum 驗證
+  buildCatalogIndex.ts     產生 catalog/ 三層 Markdown／HTML／JSON 索引
   expandedSources.ts       擴充官方及開源來源
   governmentSpecializedSources.ts
 shared/                    前後端共用常數與型別
 docs/assets/               品牌資產（不適用 MIT，見 docs/assets/NOTICE）
+data/                      100 筆 metadata 樣本、manifest 與上游資料 NOTICE
+catalog/                   Actions 生成的完整靜態索引；不提交 Git
 ```
 
 ## 開源範圍與部署
 
-本 repository 是 PiSuODS 的公開開源程式庫，包含程式碼、migration、治理來源定義與驗證文件，但**不包含正式資料庫內容、環境變數、OAuth 憑證或模型金鑰**。全國政府 metadata 可由官方全量匯出及同步程式重建。
+本 repository 是 PiSuODS 的公開開源程式庫，包含程式碼、migration、治理來源定義、100 筆 metadata 樣本與驗證文件，但**不包含正式資料庫內容、完整政府目錄快照、環境變數、OAuth 憑證或模型金鑰**。全國政府 metadata 可由官方全量匯出、GitHub Release 快照及同步程式重建；完整 `catalog/` 索引只在 Actions 建置時產生。
 
 本 repository 不包含 PiSuAI 產品線的其他產品、共用後端服務或模型；該等內容不因本專案採 MIT License 而開源或授權。
 
@@ -260,7 +282,7 @@ docs/assets/               品牌資產（不適用 MIT，見 docs/assets/NOTICE
 
 學術或報告引用時，請引用 repository 與所用 commit 或版本標籤；機器可讀格式見 [`CITATION.cff`](./CITATION.cff)。
 
-> 評律數位科技 PingLex Digital Technology Co., Ltd. (2026). *PiSuODS: PiSuAI Open Data System*（版本或 commit）。GitHub. https://github.com/KuohuaFan/pisuai-open-data
+> 評律數位科技 PingLex Digital Technology Co., Ltd. (2026). _PiSuODS: PiSuAI Open Data System_（版本或 commit）。GitHub. https://github.com/KuohuaFan/pisuai-open-data
 
 ## 授權
 

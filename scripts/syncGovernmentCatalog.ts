@@ -1,5 +1,6 @@
 import "dotenv/config";
 import { rm } from "node:fs/promises";
+import { dirname } from "node:path";
 import {
   syncGovernmentCatalogDelta,
   syncGovernmentCatalogFile,
@@ -29,13 +30,7 @@ if (mode === "full" && args[1] === "--from-release") {
       )
     );
   } finally {
-    await rm(
-      release.csvPath.replace(/\/gov-catalog-snapshot-[^/]+\.csv$/, ""),
-      {
-        recursive: true,
-        force: true,
-      }
-    );
+    await rm(dirname(release.csvPath), { recursive: true, force: true });
   }
 } else if (mode === "full") {
   const path = args[1] ?? "/tmp/datagov.csv";

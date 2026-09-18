@@ -164,6 +164,17 @@ async function finishSync(
     .where(eq(governmentCatalogSyncs.id, id));
 }
 
+export function resolveFullSyncProvenance(
+  sourceFileSha256: string,
+  release?: { snapshotDate: string; sha256: string }
+) {
+  return {
+    reportDate: release?.snapshotDate ?? null,
+    snapshotSha256: release?.sha256 ?? sourceFileSha256,
+    sourceFileSha256,
+  };
+}
+
 export async function syncGovernmentCatalogFile(
   path: string,
   release?: { snapshotDate: string; sha256: string }
@@ -211,8 +222,8 @@ export async function syncGovernmentCatalogFile(
           eq(governmentDatasets.status, "active")
         )
       );
-    const sourceFileSha256 = hasher.digest("hex");
-    const snapshotSha256 = release?.sha256 ?? sourceFileSha256;
+    const provenance = resolveFullSyncProvenance(hasher.digest("hex"), release);
+    const { snapshotSha256, sourceFileSha256 } = provenance;
     await finishSync(syncId, {
       status: "succeeded",
       recordsSeen: seen,
@@ -223,7 +234,7 @@ export async function syncGovernmentCatalogFile(
     return {
       ok: true,
       mode: "full" as const,
-      reportDate: release?.snapshotDate ?? null,
+      reportDate: provenance.reportDate,
       recordsSeen: seen,
       recordsChanged: changed,
       snapshotSha256,

@@ -1,0 +1,21 @@
+{
+  "snapshotDate": "2026-09-15",
+  "rowCount": 53169,
+  "uniqueDatasetIds": 53169,
+  "sha256": "64e004e3bfc1a88f309b632c173a20a9592d116b03eb599a31d9a6a8be296d5e",
+  "sourceUrl": "https://data.gov.tw/api/v2/rest/dataset/export",
+  "sourcePage": "https://data.gov.tw/dataset/6564",
+  "license": {
+    "name": "政府資料開放授權條款第 1 版",
+    "url": "https://data.gov.tw/license"
+  },
+  "attribution": "資料來源：數位發展部 2026「政府資料開放平臺資料集清單」（data.gov.tw，2026-09-15 快照），依政府資料開放授權條款第 1 版利用；本索引為 metadata 再整理，非原始資料，亦非經人工查核之來源卡。",
+  "publisher": "評律數位科技股份有限公司",
+  "publisherDisplay": "評律數位科技股份有限公司（PingLex Digital Technology Co., Ltd.）",
+  "generatorCommit": "048746da4c7bde74b44290b34c2795dae42ebd3e",
+  "asset": "gov-catalog-snapshot-2026-09-15.csv.gz",
+  "releaseTag": "catalog-2026-09-15",
+  "releaseUrl": "https://github.com/KuohuaFan/pisuai-open-data/releases/tag/catalog-2026-09-15",
+  "sampleFile": "catalog-sample.json",
+  "sampleRowCount": 100
+}

@@ -17,5 +17,6 @@ export function assertSnapshotDate(snapshotDate: string) {
 
 export function catalogAttribution(snapshotDate: string) {
   assertSnapshotDate(snapshotDate);
-  return `資料來源：政府資料開放平臺（data.gov.tw），依政府資料開放授權條款第 1 版利用；快照日期 ${snapshotDate}；本索引為 metadata 再整理，非原始資料，亦非經人工查核之來源卡。`;
+  const year = snapshotDate.slice(0, 4);
+  return `資料來源：數位發展部 ${year}「政府資料開放平臺資料集清單」（data.gov.tw，${snapshotDate} 快照），依政府資料開放授權條款第 1 版利用；本索引為 metadata 再整理，非原始資料，亦非經人工查核之來源卡。`;
 }
