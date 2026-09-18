@@ -12,108 +12,164 @@ import {
 
 if (!process.env.DATABASE_URL) throw new Error("DATABASE_URL is required");
 
+const PRE_MERGE_SEED = {
+  key: "biennial-report",
+  enabled: false,
+  cronExpression: "0 0 1 */2 * *",
+} as const;
+
+if (LEGACY_REPORT_AUTOMATION_KEY !== PRE_MERGE_SEED.key) {
+  throw new Error(
+    "The legacy constant no longer matches the pre-merge main seed key"
+  );
+}
+
 const table = `automation_configs_migration_test_${process.pid}`;
 const quotedTable = `\`${table}\``;
-const migrationPath = new URL("../drizzle/0004_rename_report_automation_key.sql", import.meta.url);
-const migration = await readFile(migrationPath, "utf8");
-const upMigration = migration.split("-- Down migration")[0];
-const statements = upMigration
-  .replaceAll("`automation_configs`", quotedTable)
-  .replace(/^--> statement-breakpoint$/gm, "")
-  .split(";")
-  .map(statement => statement.trim())
-  .filter(Boolean);
+
+async function readUpStatements(filename: string) {
+  const migration = await readFile(
+    new URL(`../drizzle/${filename}`, import.meta.url),
+    "utf8"
+  );
+  return migration
+    .split("-- Down migration")[0]
+    .replaceAll("`automation_configs`", quotedTable)
+    .replace(/^--> statement-breakpoint$/gm, "")
+    .split(";")
+    .map(statement => statement.trim())
+    .filter(Boolean);
+}
+
+const migrations = [
+  {
+    filename: "0004_rename_report_automation_key.sql",
+    statements: await readUpStatements("0004_rename_report_automation_key.sql"),
+  },
+  {
+    filename: "0005_rename_biennial_report_key.sql",
+    statements: await readUpStatements("0005_rename_biennial_report_key.sql"),
+  },
+];
 
 const connection = await createConnection(process.env.DATABASE_URL);
 
+async function applyMigrations(passes = 1) {
+  for (let pass = 0; pass < passes; pass += 1) {
+    for (const migration of migrations) {
+      for (const statement of migration.statements)
+        await connection.query(statement);
+    }
+  }
+}
+
+async function listRows() {
+  const [rows] = await connection.execute<RowDataPacket[]>(
+    `SELECT \`key\`, \`enabled\`, \`cronExpression\`, \`scheduleCronTaskUid\` FROM ${quotedTable} ORDER BY \`key\``
+  );
+  return rows as Array<{
+    key: string;
+    enabled: number | boolean;
+    cronExpression: string;
+    scheduleCronTaskUid: string | null;
+  }>;
+}
+
 try {
-  await connection.query(`CREATE TEMPORARY TABLE ${quotedTable} LIKE \`automation_configs\``);
+  await connection.query(
+    `CREATE TEMPORARY TABLE ${quotedTable} LIKE \`automation_configs\``
+  );
+
+  // Exact regression fixture from main before PR #6.
   await connection.execute(
     `INSERT INTO ${quotedTable} (\`key\`, \`enabled\`, \`cronExpression\`, \`scheduleCronTaskUid\`, \`model\`, \`promptVersion\`, \`updatedAt\`)
-     VALUES (?, true, ?, ?, ?, ?, ?)`,
+     VALUES (?, ?, ?, NULL, ?, ?, ?)`,
     [
-      LEGACY_REPORT_AUTOMATION_KEY,
-      "0 0 1 */2 * *",
-      "migration-test-task-uid",
+      PRE_MERGE_SEED.key,
+      PRE_MERGE_SEED.enabled,
+      PRE_MERGE_SEED.cronExpression,
       "gpt-5-mini",
       "evidence-report-v1.0",
       Date.now(),
-    ],
+    ]
   );
 
-  for (let pass = 0; pass < 2; pass += 1) {
-    for (const statement of statements) await connection.query(statement);
+  await applyMigrations(2);
+  const migratedRows = await listRows();
+  const migrated = migratedRows[0];
+  if (
+    migratedRows.length !== 1 ||
+    migrated?.key !== REPORT_AUTOMATION_KEY ||
+    Boolean(migrated?.enabled) !== PRE_MERGE_SEED.enabled ||
+    migrated?.cronExpression !== PRE_MERGE_SEED.cronExpression ||
+    migrated?.scheduleCronTaskUid !== null
+  ) {
+    throw new Error(
+      `Pre-merge seed regression failed: ${JSON.stringify(migratedRows)}`
+    );
   }
 
   const findByKey = async (key: string) => {
     const [rows] = await connection.execute<RowDataPacket[]>(
       `SELECT * FROM ${quotedTable} WHERE \`key\` = ? LIMIT 1`,
-      [key],
+      [key]
     );
     return (rows[0] as any) ?? null;
   };
-
   const config = await resolveReportAutomationConfig(findByKey);
   if (!config || config.key !== REPORT_AUTOMATION_KEY) {
-    throw new Error("The migrated report automation config was not readable through the new key");
+    throw new Error(
+      "The migrated pre-merge config was not readable through the current key"
+    );
   }
 
-  const [taskRows] = await connection.execute<RowDataPacket[]>(
-    `SELECT * FROM ${quotedTable} WHERE \`scheduleCronTaskUid\` = ? LIMIT 1`,
-    ["migration-test-task-uid"],
-  );
-  const taskConfig = taskRows[0] as { key?: string } | undefined;
-  if (!taskConfig?.key || !isReportAutomationConfigKey(taskConfig.key)) {
-    throw new Error("The migrated task UID did not resolve to an allowed report automation key");
-  }
-
-  const [legacyRows] = await connection.execute<RowDataPacket[]>(
-    `SELECT \`id\` FROM ${quotedTable} WHERE \`key\` = ?`,
-    [LEGACY_REPORT_AUTOMATION_KEY],
-  );
-  if (legacyRows.length !== 0) throw new Error("Legacy automation key remained after migration");
-
+  // When both rows exist, preserve the active state and legacy task binding.
   await connection.query(`TRUNCATE TABLE ${quotedTable}`);
   await connection.execute(
     `INSERT INTO ${quotedTable} (\`key\`, \`enabled\`, \`cronExpression\`, \`scheduleCronTaskUid\`, \`model\`, \`promptVersion\`, \`updatedAt\`)
      VALUES (?, false, ?, NULL, ?, ?, ?), (?, true, ?, ?, ?, ?, ?)`,
     [
       REPORT_AUTOMATION_KEY,
-      "0 0 1 */2 * *",
+      "0 0 3 * * *",
       "gpt-5-mini",
       "evidence-report-v1.0",
       Date.now(),
       LEGACY_REPORT_AUTOMATION_KEY,
-      "0 0 1 */2 * *",
-      "duplicate-test-task-uid",
+      PRE_MERGE_SEED.cronExpression,
+      "legacy-task-uid",
       "gpt-5-mini",
       "evidence-report-v1.0",
       Date.now(),
-    ],
+    ]
   );
 
-  for (const statement of statements) await connection.query(statement);
-  const [dedupedRows] = await connection.execute<RowDataPacket[]>(
-    `SELECT \`key\`, \`enabled\`, \`scheduleCronTaskUid\` FROM ${quotedTable}`,
-  );
+  await applyMigrations(2);
+  const mergedRows = await listRows();
   if (
-    dedupedRows.length !== 1 ||
-    dedupedRows[0]?.key !== REPORT_AUTOMATION_KEY ||
-    !dedupedRows[0]?.enabled ||
-    dedupedRows[0]?.scheduleCronTaskUid !== "duplicate-test-task-uid"
+    mergedRows.length !== 1 ||
+    mergedRows[0]?.key !== REPORT_AUTOMATION_KEY ||
+    !Boolean(mergedRows[0]?.enabled) ||
+    mergedRows[0]?.scheduleCronTaskUid !== "legacy-task-uid"
   ) {
-    throw new Error("Concurrent legacy/current rows were not merged safely");
+    throw new Error(
+      `Concurrent legacy/current rows were not merged safely: ${JSON.stringify(mergedRows)}`
+    );
+  }
+  if (!isReportAutomationConfigKey(mergedRows[0].key)) {
+    throw new Error(
+      "The merged row no longer resolves to an allowed report automation key"
+    );
   }
 
   console.log(
     JSON.stringify({
-      migration: "0004_rename_report_automation_key.sql",
+      migrations: migrations.map(item => item.filename),
       passes: 2,
-      migratedKey: config.key,
-      taskUidVerified: true,
-      legacyRows: 0,
+      preMergeSeed: PRE_MERGE_SEED,
+      result: migrated,
       duplicateRowsMerged: true,
-    }),
+      preservedTaskUid: "legacy-task-uid",
+    })
   );
 } finally {
   await connection.query(`DROP TEMPORARY TABLE IF EXISTS ${quotedTable}`);

@@ -197,7 +197,7 @@ pnpm exec tsx scripts/syncGovernmentCatalog.ts \
 | `POST /api/scheduled/sync-government-catalog` | 每日同步前一日政府資料異動       | Cron 身分、task UID、啟用狀態及六小時冪等窗口 |
 | `POST /api/scheduled/generate-report-draft`   | 依排程週期建立一則深度報導草稿   | 只建立待審草稿，不可直接公開                  |
 
-這些端點不是公開 webhook。正式啟用時，必須由部署平台的受驗證排程服務呼叫，並把 task UID 寫入 `automation_configs`；報導草稿的產生週期由排程設定決定，官方部署目前為每 48 小時。
+這些端點不是公開 webhook。正式啟用時，必須由部署平台的受驗證排程服務呼叫，並把 task UID 寫入 `automation_configs`；正式部署目前未啟用這兩項排程；seed 預設 cron 為每兩日 01:00（臺北時間），啟用與否由 `automation_configs` 的 `enabled` 與部署平台排程決定。目錄同步可以 `scripts/syncGovernmentCatalog.ts` 手動執行。管理者亦可在治理後台使用「產生一則待審草稿」手動建立報導草稿。
 
 **人工發布閘門的性質**：「AI 不得跳過人工審核直接發布」是本專案的預設實作與 PiSuODS 官方服務的營運政策，不構成對 MIT License 授權權利的額外限制。取得本專案程式碼的第三人依 MIT License 得修改此設計；但公開部署時，仍須自行承擔上游資料授權、個資與名譽風險。
 

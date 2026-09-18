@@ -23,6 +23,7 @@
     "check": "tsc --noEmit",
     "format": "prettier --write .",
     "test": "vitest run",
+    "test:migration:report-automation": "tsx scripts/verifyReportAutomationMigration.ts",
     "setup:env": "tsx scripts/setupEnv.ts",
     "db:push": "drizzle-kit generate && drizzle-kit migrate"
   },

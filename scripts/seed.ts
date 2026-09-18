@@ -118,7 +118,7 @@ if (!legacyReportAutomation) {
     .onDuplicateKeyUpdate({ set: { cronExpression: "0 0 1 */2 * *", model: "gpt-5-mini", promptVersion: "evidence-report-v1.0", updatedAt: now } });
 } else {
   console.warn(
-    `[Seed] Deprecated automation key "${LEGACY_REPORT_AUTOMATION_KEY}" remains; apply migration 0004 before seeding the new key.`,
+    `[Seed] Deprecated automation key "${LEGACY_REPORT_AUTOMATION_KEY}" remains; apply migrations 0004 and 0005 before seeding the new key.`,
   );
 }
 await db.insert(automationConfigs).values({ key: "government-catalog-sync", enabled: false, cronExpression: "0 30 21 * * *", model: "deterministic", promptVersion: "data-gov-delta-v1.0", updatedAt: now }).onDuplicateKeyUpdate({ set: { cronExpression: "0 30 21 * * *", model: "deterministic", promptVersion: "data-gov-delta-v1.0", updatedAt: now } });
