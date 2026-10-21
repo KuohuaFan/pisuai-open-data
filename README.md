@@ -1,4 +1,4 @@
-# PiSuODS｜PiSuAI 紫鳥貔貅・臺灣開放資料與深度報導平台
+# PiSuODS™｜PiSuAI™ 紫鳥貔貅・臺灣開放資料與深度報導平台
 
 <p align="center">
   <img src="./docs/assets/pisuai-purple-bird-logo.webp" alt="PiSuAI 紫鳥貔貅 Logo" width="144" height="144" />
@@ -289,6 +289,8 @@ catalog/                   Actions 生成的完整靜態索引；不提交 Git
 本專案自行提供的程式碼與技術文件採 [MIT License](./LICENSE)。政府資料、民間資料、附件、圖片與第三方內容仍適用各自的原始授權及使用條件；本專案的 MIT License 不會自動授權這些內容。
 
 `docs/assets/` 下的品牌資產不適用 MIT License，其使用條件見 [`docs/assets/NOTICE`](./docs/assets/NOTICE)。`PiSuAI`、`PiSuAI|紫鳥貔貅`、`PiSuODS`、標誌及其他來源識別不因程式碼開源而授權第三人用於表示官方關係或背書。完整邊界見 [`TRADEMARKS_AND_DATA.md`](./TRADEMARKS_AND_DATA.md)。
+
+PiSuAI™、PiSuODS™ 為評律數位科技股份有限公司之商標。
 
 ## 參考來源
 

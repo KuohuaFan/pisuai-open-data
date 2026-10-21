@@ -1,4 +1,4 @@
-# PiSuAI 開源路線圖
+# PiSuAI™ 開源路線圖
 
 本路線圖提供方向，不代表時間承諾。具體實作以 Issue、Pull Request 與維護者審查結果為準。
 
